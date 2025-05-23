@@ -1,161 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAE Modular AI Agent Platform – Business & Technical Plan</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: #2980b9;
-            margin-top: 30px;
-        }
-        h3 {
-            color: #16a085;
-        }
-        .highlight {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-left: 4px solid #3498db;
-            margin: 20px 0;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        .footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            font-size: 0.9em;
-            color: #7f8c8d;
-        }
-        .section {
-            margin-bottom: 30px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAE Modular AI Agent Platform for Energy Retail</title>
+  <style>
+    body { margin: 20px; font-family: Arial, sans-serif; color: #333; max-width: 800px; }
+    h1 { text-align: center; margin-bottom: 0.5em; }
+    h2 { margin-top: 1.5em; border-bottom: 1px solid #ccc; padding-bottom: 0.3em; }
+    h3 { margin-top: 1em; }
+    p, ul, ol { margin-bottom: 1em; }
+    img { max-width: 100%; height: auto; display: block; margin: 1em 0; }
+    details { background-color: #f9f9f9; padding: 10px; margin: 1em 0; border-left: 4px solid #ccc; }
+    summary { cursor: pointer; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1em; }
+    th, td { border: 1px solid #ccc; padding: 0.5em; }
+  </style>
 </head>
 <body>
-    <h1>DAE Modular AI Agent Platform – Revised Business & Technical Plan</h1>
-    
-    <div class="section">
-        <h2>Executive Summary</h2>
-        <p>DAE's AI Agent Platform leverages real-time fuel station data (from FCC/CMS/POS) to automate and enhance roles in Finance, IT, Logistics, HSSE, Operations, and other functions in the fuel & energy retail sector. This revised plan extends the platform to support third-party CMS systems, broadening our market reach. It introduces a Universal Data Ingestion (ETL) Agent and Canonical Data Model to normalize data from any CMS, an API Gateway and Developer Portal for external integration, and a CMS-agnostic internal API layer so that all AI agents work identically regardless of data source. Key business and go-to-market (GTM) changes are included: new partnership channels with other CMS vendors, expanded pilot programs on competitor systems, and updated pricing/model options. Strategic alliances and pilot deployments will validate the expanded platform before full launch.</p>
-    </div>
-    
-    <div class="section">
-        <h2>Company & Market Background</h2>
-        <p>DAE is a leading supplier of Forecourt Controllers (FCC), Central Management Systems (CMS), and Point-of-Sale (POS) solutions to over 20 fuel retail clients across China and APAC. The company's modular AI Agent platform is built on top of this infrastructure. It is designed to deploy specialized AI "agents" aligned with key organizational roles (Finance, IT, Logistics, HSSE, Operations, etc.) and uses the CMS's real-time data streams to provide insights, automation, and decision support. For example:</p>
-        <ul>
-            <li><strong>Finance Agent:</strong> Automates financial reporting, revenue forecasting, and pricing analysis using sales and transaction data.</li>
-            <li><strong>Logistics Agent:</strong> Optimizes inventory replenishment and supply chain scheduling from inventory and delivery data.</li>
-            <li><strong>HSSE Agent:</strong> Monitors safety compliance and predicts incidents using sensor readings and historical safety reports.</li>
-            <li><strong>IT/Operations Agent:</strong> Detects equipment anomalies and schedules maintenance using system logs and forecourt equipment data.</li>
-        </ul>
-        
-        <p>These agents help DAE's existing clients reduce manual workload and improve accuracy in their core functions. The current architecture is tightly integrated: DAE FCCs and POS terminals feed data into DAE's CMS, which stores and processes it. Our AI platform sits atop the CMS data layer, accessing standardized tables and feeds. This means each AI agent currently expects the specific data model and API of DAE's CMS. The platform as originally designed is effective but limited to DAE's own CMS customers.</p>
-        
-        <div class="highlight">
-            <h3>Existing deployment snapshot:</h3>
-            <p><strong>Component</strong> - <strong>Description</strong> - <strong>Deployment Status</strong></p>
-            <p>Forecourt Controller (FCC) - Hardware/software to control pumps and forecourt sensors - Deployed at 20+ sites</p>
-            <p>Central Management System (CMS) - Consolidates station data, scheduling, and reporting - Live with DAE clients</p>
-            <p>Point-of-Sale (POS) - Transactional system at pumps and stores - Integrated with DAE CMS</p>
-            <p>AI Agent Platform - Modular software agents (Finance, IT, etc.) analyzing CMS data - Beta-tested, initial rollouts</p>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>Proposed System Enhancements</h2>
-        
-        <h3>1. Universal Data Ingestion & ETL Agent</h3>
-        <p>To serve clients using non-DAE CMS systems, we introduce a Universal Data Ingestion Agent. This component connects to any CMS or data source (including third-party CMS databases, cloud services, or streaming feeds) and extracts relevant fuel retail data in real time or batch. Key features:</p>
-        <ul>
-            <li><strong>Connector Library:</strong> Pre-built connectors for popular competitor CMS products and generic connectors (e.g. SQL databases, REST APIs, message queues).</li>
-            <li><strong>Data Transformation Pipeline:</strong> Implements ETL (Extract-Transform-Load) processes to map source data into our platform.</li>
-            <li><strong>Validation & Quality Checks:</strong> Ensures incoming data meets expected formats and ranges before ingestion.</li>
-            <li><strong>Scalability:</strong> Supports high-volume streaming (Kafka, MQTT) or on-prem batch loading, matching clients' needs.</li>
-        </ul>
-        
-        <h3>2. Canonical Data Schema & Transformation Layer</h3>
-        <p>A core requirement of multi-source integration is defining a Canonical Data Schema (CDS). The CDS is a standardized model of all data types needed by the AI agents. All source data is mapped into this schema.</p>
-        <ul>
-            <li><strong>Data Model Definition:</strong> We will catalogue common entities in fuel retail and define one set of fields/attributes for each.</li>
-            <li><strong>Transformation Rules:</strong> For each connected CMS, define rules and code to extract source fields and transform them into the CDS format.</li>
-            <li><strong>Maintenance & Evolution:</strong> As we encounter new data use cases, the CDS can evolve with versioning.</li>
-        </ul>
-        
-        <h3>3. API Gateway & Developer Ecosystem</h3>
-        <p>To commercialize the platform widely, we will expose a set of standardized APIs and tools:</p>
-        <ul>
-            <li><strong>API Gateway:</strong> A central gateway handling authentication, routing, rate-limiting, and monitoring for all API calls.</li>
-            <li><strong>Developer Portal & SDK:</strong> Web portal containing API documentation, SDKs, code samples, and tutorials.</li>
-        </ul>
-        
-        <h3>4. CMS-Agnostic AI Agents (Internal API Standardization)</h3>
-        <p>A key design principle is that AI agents never directly access raw CMS; they interact only with the standardized internal APIs that serve the Canonical Data.</p>
-        
-        <h3>5. Updated Business Model & Go-To-Market Strategy</h3>
-        <p>Expanding beyond DAE's CMS customers requires both product and GTM adjustments:</p>
-        <ul>
-            <li><strong>Product Packaging:</strong> Offer the AI platform independently as a SaaS or on-prem solution.</li>
-            <li><strong>Partnership Channels:</strong> CMS Vendor Alliances, System Integrators, Data & Analytics Resellers.</li>
-            <li><strong>Pricing Model:</strong> Subscription-based model with tiered bundles.</li>
-        </ul>
-    </div>
-    
-    <div class="section">
-        <h2>Technical & Rollout Plan</h2>
-        <h3>Development Phases</h3>
-        <ol>
-            <li><strong>Phase 1: Prototype Integration (Q3 2025)</strong> - Finalize Canonical Data Schema, build ETL Agent prototype, develop API Gateway framework.</li>
-            <li><strong>Phase 2: Core Platform Release (Q4 2025)</strong> - Complete CMS connectors, refine ETL processes, deploy updated AI agents.</li>
-            <li><strong>Phase 3: Pilot Deployments (Q1 2026)</strong> - Engage 3-5 pilot customers using competitor CMS.</li>
-            <li><strong>Phase 4: Full Market Launch (Q2 2026)</strong> - Announce general availability with case studies.</li>
-        </ol>
-        
-        <h3>Rollout Strategy & Partnerships</h3>
-        <ul>
-            <li><strong>Strategic Alliances:</strong> Establish agreements with major CMS vendors and system integrators.</li>
-            <li><strong>Pilot Phases:</strong> Target diverse geographies and retailer sizes.</li>
-            <li><strong>Developer Community:</strong> Launch partner program with early access to SDKs.</li>
-        </ul>
-    </div>
-    
-    <div class="section">
-        <h2>Key Benefits & Competitive Edge</h2>
-        <ul>
-            <li><strong>Broader Market Access:</strong> Support any CMS to sell to customers locked into other systems.</li>
-            <li><strong>Reduced Integration Risk:</strong> Canonical data model means writing each CMS connector only once.</li>
-            <li><strong>Accelerated Time-to-Value:</strong> Quicker rollouts once ETL connector is ready.</li>
-            <li><strong>Modular & Scalable:</strong> New agents can be added using the same data backbone.</li>
-        </ul>
-    </div>
-    
-    <div class="section">
-        <h2>Conclusion and Next Steps</h2>
-        <p>This revised plan carefully augments DAE's existing architecture with minimal disruption. Core systems remain intact; we add an abstraction layer around them. The result is a highly scalable, future-proof platform.</p>
-        <p>Immediate next steps include finalizing the canonical data schema, defining connector specifications for the top target CMS, and updating internal API documentation. With these in place, DAE can begin partner outreach and prototype deployments to validate the approach.</p>
-        <p>By executing this strategy, DAE stands to become the platform leader for AI in fuel retail, regardless of underlying CMS. Our expanded platform will deliver the promise of intelligent automation to a much wider industry audience.</p>
-    </div>
-    
-    <div class="footer">
-        <p>DAE Modular AI Agent Platform Business & Technical Plan</p>
-        <p>Last updated: May 2024</p>
-    </div>
+<h1>DAE Modular AI Agent Platform for Energy Retail Stations</h1>
+<p>Fuel retail stations face volatile demand and operational inefficiencies. DAE’s Modular AI Agent Platform addresses these challenges by integrating IoT and AI to provide real-time analytics, predictive optimization, and automated workflows across forecourt and store operations. The platform’s modular architecture allows flexible deployment of individual modules and seamless expansion into new functionalities. AI-driven capabilities enable precise inventory forecasting and dynamic pricing, and they support personalized promotions that drive repeat business [oai_citation:0‡solink.com](https://solink.com/resources/industry-insights/ai-in-the-gas-station-and-convenience-store-industry/#:~:text=AI%20is%20transforming%20the%20gas,By%20integrating%20AI%20across%20these). These combined capabilities yield improved operational efficiency and significantly higher profitability [oai_citation:1‡solink.com](https://solink.com/resources/industry-insights/ai-in-the-gas-station-and-convenience-store-industry/#:~:text=various%20aspects%20of%20operation%2C%20gas,increased%20profitability%20and%20customer%20loyalty).</p>
+<p>
+<h2>Industry Context</h2>
+<p>In the downstream fuel market, data-driven integration is critical. AI solutions that integrate supply, pricing, and retail data can help optimize fuel distribution and margins [oai_citation:2‡mckinsey.com](https://www.mckinsey.com/industries/oil-and-gas/our-insights/unlocking-value-with-ai-in-the-rack-to-retail-fuel-market#:~:text=Understanding%20micromarket%20trends%E2%80%94and%20utilizing%20AI%E2%80%94in,supply%20chains%20and%20improve%20margins). However, many networks struggle with siloed data and manual processes. Industry experts report limited transparency, fragmented data access, and significant effort spent on manual data aggregation [oai_citation:3‡mckinsey.com](https://www.mckinsey.com/industries/oil-and-gas/our-insights/unlocking-value-with-ai-in-the-rack-to-retail-fuel-market#:~:text=Our%20interviews%20with%20industry%20experts,data%2C%20and%20limited%20AI%20adoption). DAE’s platform overcomes these silos by unifying data streams from all sources, enabling real-time insights and agile decision-making across the network.</p>
+<h2>Solution Overview</h2>
+<p>DAE’s platform is built on a modular design principle: each component (Forecourt Controller, POS, CMS, etc.) is independent and interchangeable [oai_citation:4‡daeit.com.sg](https://daeit.com.sg/#:~:text=The%20heart%20of%20DAE%20solution,operation%20of%20the%20entire%20system). This flexibility allows clients to adopt and upgrade capabilities incrementally. For example, a station might first deploy the forecourt connectivity and later add advanced analytics or mobile apps without disrupting operations. The platform’s open integration layer provides connectors to major industry systems [oai_citation:5‡daeit.com.sg](https://daeit.com.sg/#:~:text=3rd%20Party%20Integration), so DAE’s AI agents can augment any existing infrastructure.</p>
+<details>
+<summary>Forecourt Controller (FCC)</summary>
+<p>DAE’s Forecourt Controller uses an IP-based Windows 10 mini-PC to connect and manage all forecourt devices [oai_citation:6‡daeit.com.sg](https://daeit.com.sg/forecourt-controller-fcc/#:~:text=DAE%20uses%20IP,savings%20for%20fuel%20retail%20operations). It supports both wired (RS232/RS485 serial to Ethernet) and wireless (serial to Wi-Fi) connectivity, offering high reliability and security [oai_citation:7‡daeit.com.sg](https://daeit.com.sg/forecourt-controller-fcc/#:~:text=The%20DAE%20FCC%20connectivity%20comes,choices%20%E2%80%93%20wired%20or%20wireless). This design simplifies integration with existing dispensers, tank gauges, and IoT sensors, and it allows field upgrades via standard PC hardware.</p>
+</details>
+<details>
+<summary>Point of Sale (POS)</summary>
+<p>The DAE cloud-based POS is purpose-built for fuel retail, interfacing directly with dispensers and tank gauges [oai_citation:8‡daeit.com.sg](https://daeit.com.sg/dae-point-of-sale-pos/#:~:text=DAE%E2%80%99s%20cloud,ATG). It scales to support convenience stores and quick-service restaurants, ensuring seamless operation across the site. The POS system integrates with third-party applications (e.g., cash-drop accounting) to enhance efficiency [oai_citation:9‡daeit.com.sg](https://daeit.com.sg/dae-point-of-sale-pos/#:~:text=DAE%E2%80%99s%20cloud,ATG). It also includes marketing and loyalty modules, enabling personalized promotions and reward programs that drive repeat business [oai_citation:10‡daeit.com.sg](https://daeit.com.sg/dae-point-of-sale-pos/#:~:text=Moreover%2C%20DAE%E2%80%99s%20POS%20offers%20the,service%2C%20and%20ultimately%20boost%20profitability). In practice, handheld POS devices empower attendants to serve customers at the pump, reducing queues and improving service.</p>
+</details>
+<details>
+<summary>Central Management System (CMS)</summary>
+<p>DAE’s Head Office CMS offers a centralized management platform. It supports flexible hosting (public cloud, on-premises, or hybrid) to fit each retailer’s IT strategy [oai_citation:11‡daeit.com.sg](https://daeit.com.sg/central-management-service-cms/#:~:text=DAE%20CMS%20or%20Head%20Office,operations%20while%20managing%20costs%20effectively). Station data syncs directly to the central system (eliminating a separate back-office server), providing real-time visibility into sales, inventory, pricing, loyalty metrics, and wet stock levels [oai_citation:12‡daeit.com.sg](https://daeit.com.sg/central-management-service-cms/#:~:text=Unlike%20traditional%20architectures%20that%20require,management%2C%20and%20wet%20stock%20management). Retailers use the CMS dashboard to manage products, pricing, promotions, and loyalty programs, and to generate consolidated reports and analytics across the network. This unified platform empowers data-driven decisions and agile management.</p>
+</details>
+<details>
+<summary>Third-Party Integration</summary>
+<p>Beyond DAE’s own modules, the platform features a flexible integration framework for external systems. It can ingest data from third-party CMS or fuel management systems via APIs, webhooks, or file transfers. For example, Mako Networks’ CMS can stream tank gauge data to external systems via API/webhooks [oai_citation:13‡makonetworks.com](https://makonetworks.com/news/2024/11/mako-networks-launches-smartatg-to-optimize-fuel-management/#:~:text=SmartATG%20presents%20users%20with%20fuel,data%20in%20two%20ways). DAE’s platform uses connectors to fetch this data, then normalizes it into a unified data model. In effect, retailers can leverage DAE’s AI agents to analyze operational data across any combination of internal and external systems, providing a unified view of station performance.</p>
+</details>
+<details>
+<summary>Big Data & Analytics</summary>
+<p>The platform includes a big data intelligence layer that transforms the aggregated data into actionable insights [oai_citation:14‡daeit.com.sg](https://daeit.com.sg/#:~:text=Big%20Data%20Intelligence%20). Advanced analytics modules deliver dashboards and alerts for key performance indicators, demand forecasting, equipment health, and customer analytics. These insights empower operators to optimize ordering, maintenance, staffing, and marketing strategies on an ongoing basis.</p>
+</details>
+<h2>Business Model & Value Proposition</h2>
+<p>DAE’s platform is offered as a SaaS subscription and modular license model to fuel retailers and petroleum companies. It creates value in multiple ways:</p>
+<ul>
+<li><b>Operational Cost Savings:</b> By automating inventory and fuel monitoring, the platform reduces shrinkage and stockouts. Studies show that automated fuel management can cut fuel costs by up to ~15% and shrinkage by 10–20% through better accountability [oai_citation:15‡assetworks.com](https://www.assetworks.com/fleet/fuelfocus/#:~:text=Save%20money%20on%20fuel). Predictive maintenance similarly lowers expenses: AI-based maintenance programs can save 8–12% over preventive maintenance (and up to 40% over reactive approaches) [oai_citation:16‡advancedtech.com](https://www.advancedtech.com/blog/predictive-maintenance-cost-savings/#:~:text=Predictive%20maintenance%20can%20yield%20cost,more%20money%20over%20time%20while).</li>
+<li><b>Revenue Growth:</b> Dynamic pricing algorithms and demand forecasts ensure optimal pricing and inventory. Industry research indicates AI-driven dynamic price optimization can raise profits by ~10–20% [oai_citation:17‡datategy.net](https://www.datategy.net/2024/02/27/redefining-dynamic-price-optimization-ai-advantage-for-retail/#:~:text=improving%20sales%2C%20productivity%2C%20and%20competitiveness,20). Personalized loyalty and promotions increase customer spend and visits, with even a 5% lift in retention translating to 25–95% higher profits [oai_citation:18‡taqtics.co](https://taqtics.co/retail-operation/gas-station-management-software/#:~:text=%2A%20This%20feature%20includes%20points,to%2095).</li>
+<li><b>Efficiency & Compliance:</b> Workflow automation reduces manual tasks (e.g., reporting, ordering), improving accuracy and speed. The system also enforces security and compliance (e.g., PCI-DSS for payment data, similar to industry-certified solutions [oai_citation:19‡makonetworks.com](https://makonetworks.com/news/2024/11/mako-networks-launches-smartatg-to-optimize-fuel-management/#:~:text=Notably%2C%20the%20Mako%20System%20is,while%20having%20less%20risk%20exposure)), easing audit burdens.</li>
+<li><b>Scalability & Openness:</b> By integrating third-party CMS, retailers can adopt DAE’s AI without overhauling existing infrastructure, lowering adoption barriers. This expanded ecosystem creates additional upsell opportunities for DAE’s advanced analytics modules.</li>
+</ul>
+<p>Overall, clients benefit from higher margins, better customer service, and new revenue channels (e.g., targeted promotions, premium analytics), justifying the investment in the AI platform.</p>
+<h2>Technical Architecture</h2>
+<p>The platform is implemented as a cloud-native microservices architecture. Core components include:</p>
+<ul>
+<li><b>IoT and Edge Layer:</b> Forecourt Controllers and sensors push data (fuel levels, pump usage, payment transactions) over secure channels (SSL/TLS, MQTT/AMQP) into the cloud or central server.</li>
+<li><b>Data Integration Layer:</b> A data bus ingests inputs from all sources (FCC, POS, CMS, third-party systems) and performs ETL normalization. Vendor-specific connectors translate each system’s data into the platform schema.</li>
+<li><b>AI & Analytics Layer:</b> Modular AI agents (deployed in containers) process data for forecasting, anomaly detection, price optimization, and alerting. Machine learning models are trained on aggregated historical data to improve accuracy over time.</li>
+<li><b>Application Layer:</b> A web-based dashboard and mobile apps allow real-time monitoring and control (e.g., inventory dashboards, loyalty management interface, report generators).</li>
+<li><b>Security & Compliance:</b> The system enforces role-based access control and encryption. For example, the Mako CMS is PCI-DSS certified [oai_citation:20‡makonetworks.com](https://makonetworks.com/news/2024/11/mako-networks-launches-smartatg-to-optimize-fuel-management/#:~:text=Notably%2C%20the%20Mako%20System%20is,while%20having%20less%20risk%20exposure); DAE follows similar security standards to protect payment and personal data.</li>
+</ul>
+<p>This architecture ensures resilience and scalability. Services can be scaled out to handle large station networks, and updates can be rolled out with minimal downtime. By automating decision workflows, the system dramatically reduces manual effort and errors [oai_citation:21‡titancloud.com](https://www.titancloud.com/blog/best-practices-for-ai-enhanced-fuel-supply-chain-management/#:~:text=In%20the%20bigger%20picture%2C%20the,processes%2C%20enhancing%20overall%20operational%20efficiency).</p>
+<h2>Data Integration and Third-Party Support</h2>
+<p>To support external CMS vendors, DAE’s platform provides a flexible data ingestion pipeline. Engineers develop connectors or use vendor APIs to pull data (e.g., fuel transactions, loyalty records) from systems such as Mako, Petrosoft, or others. The pipeline schedules regular data pulls or listens to real-time event streams (webhooks). Incoming data is mapped through a configurable schema so each vendor’s fields align to DAE’s data model. Once ingested, this normalized data feeds the AI engine alongside native sources. Robust error handling (retries, logging) ensures reliability even if a third-party system is temporarily unreachable.</p>
+<h2>Deployment and Rollout Plan</h2>
+<p>The project rollout is structured in phases:</p>
+<table>
+<tr><th>Phase</th><th>Timeline</th><th>Key Activities</th></tr>
+<tr><td>Pilot</td><td>Months 1–3</td><td>Deploy core modules at pilot stations; integrate first third-party CMS; train staff; gather feedback.</td></tr>
+<tr><td>Launch</td><td>Months 4–6</td><td>Expand to initial customer sites; refine AI models based on pilot data; activate loyalty programs and mobile apps; secure early ROI cases.</td></tr>
+<tr><td>Scale</td><td>Months 7–12</td><td>Add connectors for additional CMS/vendors; optimize system performance; initiate broader marketing; onboard new clients.</td></tr>
+<tr><td>Full Deployment</td><td>Year 2+</td><td>Global rollout; continuous feature updates; launch advanced AI modules (e.g., supply chain optimization, EV charging integration).</td></tr>
+</table>
+<p>Throughout rollout, DAE will partner with local integrators and industry organizations to ensure smooth deployment and adoption. The multi-year plan includes continuous monitoring of KPIs (uptime, station performance) and iterative improvement of the AI capabilities based on real-world data.</p>
+<h2>Conclusion</h2>
+<p>DAE’s Modular AI Agent Platform offers a comprehensive solution for modernizing energy retail stations. By combining modular hardware (FCC, POS) with cloud intelligence and open integrations, it enables fuel retailers to harness AI benefits without discarding their legacy systems. The addition of third-party CMS support widens the platform’s reach and simplifies transition. Ultimately, DAE provides stations with a unified, future-proof system to boost efficiency, profitability, and customer satisfaction in an increasingly competitive market.</p>
 </body>
 </html>
