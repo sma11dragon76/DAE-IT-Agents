@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', 'Microsoft YaHei', sans-serif; }
         .sidebar { width: 280px; }
         .content { margin-left: 280px; }
         @media (max-width: 768px) {
@@ -31,591 +31,1244 @@
         .stat-label { font-size: 0.875rem; color: #6b7280; margin-top: 0.25rem; }
         .diagram-box { border: 1px solid #cbd5e1; padding: 0.75rem; border-radius: 0.375rem; text-align: center; background-color: #f8fafc; }
         .arrow { text-align: center; font-size: 1.5rem; color: #6b7280; margin: 0.5rem 0; }
+        [data-lang="en"].hidden, [data-lang="zh"].hidden { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
     <div class="flex flex-col md:flex-row min-h-screen">
         <aside class="sidebar bg-white shadow-lg p-4 fixed md:sticky top-0 h-screen overflow-y-auto">
-            <h1 class="text-2xl font-bold text-indigo-600 mb-6 px-4">DAE AI Agents</h1>
+            <h1 class="text-2xl font-bold text-indigo-600 mb-6 px-4" data-i18n-key="appTitle">DAE AI Agents</h1>
+            <div class="mb-4 px-4">
+                <select id="language-selector" class="block w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white text-slate-700">
+                    <option value="en">English</option>
+                    <option value="zh">简体中文</option>
+                </select>
+            </div>
             <nav>
-                <a href="#overview" class="nav-link active">Overview</a>
-                <a href="#ai-opportunity" class="nav-link">AI Opportunity</a>
+                <a href="#overview" class="nav-link active" data-i18n-key="navOverview">Overview</a>
+                <a href="#ai-opportunity" class="nav-link" data-i18n-key="navAIOpportunity">AI Opportunity</a>
                 <div>
                     <button class="nav-link w-full text-left flex justify-between items-center" onclick="toggleSubmenu('ai-agents-submenu')">
-                        AI Agent Deep Dive <span class="transform transition-transform duration-200">&#9662;</span>
+                        <span data-i18n-key="navAIDeepDive">AI Agent Deep Dive</span> <span class="transform transition-transform duration-200">&#9662;</span>
                     </button>
                     <div id="ai-agents-submenu" class="hidden ml-4 mt-1">
-                        <a href="#it-agent" class="nav-link text-sm">IT Agent</a>
-                        <a href="#finance-agent" class="nav-link text-sm">Finance Agent</a>
-                        <a href="#asset-agent" class="nav-link text-sm">Asset Management</a>
-                        <a href="#hsse-agent" class="nav-link text-sm">HSSE Agent</a>
-                        <a href="#ops-agent" class="nav-link text-sm">Operations Agent</a>
-                        <a href="#wetstock-agent" class="nav-link text-sm">Wetstock Agent</a>
-                        <a href="#logistics-agent" class="nav-link text-sm">Logistics Agent</a>
-                        <a href="#marketing-agent" class="nav-link text-sm">Marketing Agent</a>
-                        <a href="#pricing-agent" class="nav-link text-sm">Pricing Agent</a>
+                        <a href="#it-agent" class="nav-link text-sm" data-i18n-key="navITAgent">IT Agent</a>
+                        <a href="#finance-agent" class="nav-link text-sm" data-i18n-key="navFinanceAgent">Finance Agent</a>
+                        <a href="#asset-agent" class="nav-link text-sm" data-i18n-key="navAssetAgent">Asset Management</a>
+                        <a href="#hsse-agent" class="nav-link text-sm" data-i18n-key="navHSSEAgent">HSSE Agent</a>
+                        <a href="#ops-agent" class="nav-link text-sm" data-i18n-key="navOpsAgent">Operations Agent</a>
+                        <a href="#wetstock-agent" class="nav-link text-sm" data-i18n-key="navWetstockAgent">Wetstock Agent</a>
+                        <a href="#logistics-agent" class="nav-link text-sm" data-i18n-key="navLogisticsAgent">Logistics Agent</a>
+                        <a href="#marketing-agent" class="nav-link text-sm" data-i18n-key="navMarketingAgent">Marketing Agent</a>
+                        <a href="#pricing-agent" class="nav-link text-sm" data-i18n-key="navPricingAgent">Pricing Agent</a>
                     </div>
                 </div>
-                <a href="#strategic-roadmap" class="nav-link">Strategic Roadmap</a>
-                <a href="#financials" class="nav-link">Financials & Funding</a>
-                <a href="#market-expansion" class="nav-link">Market Expansion</a>
-                <a href="#competitive-edge" class="nav-link">Competitive Edge</a>
-                <a href="#conclusion" class="nav-link">Conclusion</a>
+                <a href="#strategic-roadmap" class="nav-link" data-i18n-key="navStrategicRoadmap">Strategic Roadmap</a>
+                <a href="#financials" class="nav-link" data-i18n-key="navFinancials">Financials & Funding</a>
+                <a href="#market-expansion" class="nav-link" data-i18n-key="navMarketExpansion">Market Expansion</a>
+                <a href="#competitive-edge" class="nav-link" data-i18n-key="navCompetitiveEdge">Competitive Edge</a>
+                <a href="#conclusion" class="nav-link" data-i18n-key="navConclusion">Conclusion</a>
             </nav>
         </aside>
 
         <main class="content flex-1 p-6 md:p-10">
             <section id="overview" class="section active">
-                <h2 class="text-3xl font-semibold mb-6 text-slate-700">Executive Summary & DAE's Advantage</h2>
+                <h2 class="text-3xl font-semibold mb-6 text-slate-700" data-i18n-key="overviewTitle">Executive Summary & DAE's Advantage</h2>
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <p class="mb-4">DAE IT Solutions Pte. Ltd. is poised to revolutionize the fuel and energy retail sector by transforming real-time forecourt data into actionable intelligence via a suite of AI agents. This initiative targets critical inefficiencies, aiming to reduce operational costs and establish competitive advantages for fuel retailers.</p>
-                    <div class="grid md:grid-cols-2 gap-4 mb-6">
-                        <div class="stat-card">
-                            <div class="stat-value">$6.8B+</div>
-                            <div class="stat-label">Projected Global AI in Fuel Market by 2034</div>
+                    <div data-lang="en">
+                        <p class="mb-4">DAE IT Solutions Pte. Ltd. is poised to revolutionize the fuel and energy retail sector by transforming real-time forecourt data into actionable intelligence via a suite of AI agents. This initiative targets critical inefficiencies, aiming to reduce operational costs and establish competitive advantages for fuel retailers.</p>
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="stat-card">
+                                <div class="stat-value">$6.8B+</div>
+                                <div class="stat-label">Projected Global AI in Fuel Market by 2034</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">9.0%</div>
+                                <div class="stat-label">CAGR of AI in Fuel Market</div>
+                            </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-value">9.0%</div>
-                            <div class="stat-label">CAGR of AI in Fuel Market</div>
+                        <p class="mb-4">DAE's core strength lies in its proprietary Forecourt Controller (FCC) and Central Management System (CMS), which collect and centralize vast amounts of operational data. This existing infrastructure provides a significant head start, as data preparation often consumes 60-80% of AI project time.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-3 text-slate-600">DAE's Data Flow Advantage</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-5 items-center gap-2 p-4 bg-slate-100 rounded-lg">
+                            <div class="diagram-box">Forecourt Devices<br>(Dispensers, EV Chargers, ATG, Sensors)</div>
+                            <div class="arrow md:rotate-0 rotate-90">&#10140;</div>
+                            <div class="diagram-box">DAE FCC<br>(Forecourt Controller)</div>
+                            <div class="arrow md:rotate-0 rotate-90">&#10140;</div>
+                            <div class="diagram-box">DAE CMS<br>(Central Management System)<br>Real-time Data Hub</div>
                         </div>
+                        <div class="text-center my-2"><span class="text-2xl text-slate-500">&#11015;</span></div>
+                        <div class="diagram-box w-full md:w-1/2 mx-auto">DAE AI Agents<br>(Actionable Intelligence)</div>
+                        <p class="mt-4 text-sm text-slate-600">This integrated data pipeline allows DAE to bypass significant data preparation hurdles, accelerating AI development and delivering more reliable insights.</p>
                     </div>
-                    <p class="mb-4">DAE's core strength lies in its proprietary Forecourt Controller (FCC) and Central Management System (CMS), which collect and centralize vast amounts of operational data. This existing infrastructure provides a significant head start, as data preparation often consumes 60-80% of AI project time.</p>
-                     <h3 class="text-xl font-semibold mt-6 mb-3 text-slate-600">DAE's Data Flow Advantage</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-5 items-center gap-2 p-4 bg-slate-100 rounded-lg">
-                        <div class="diagram-box">Forecourt Devices<br>(Dispensers, EV Chargers, ATG, Sensors)</div>
-                        <div class="arrow md:rotate-0 rotate-90">&#10140;</div>
-                        <div class="diagram-box">DAE FCC<br>(Forecourt Controller)</div>
-                        <div class="arrow md:rotate-0 rotate-90">&#10140;</div>
-                        <div class="diagram-box">DAE CMS<br>(Central Management System)<br>Real-time Data Hub</div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE IT Solutions Pte. Ltd. 定位独特，旨在通过一套先进的 AI 智能体，将实时前场运营数据转化为可操作的情报，从而重新定义燃油和能源零售行业。这项举措旨在解决关键低效问题，显著降低运营成本，并为全球燃油零售商建立实质性的竞争优势。</p>
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="stat-card">
+                                <div class="stat-value">$6.8B+</div>
+                                <div class="stat-label">到 2034 年全球燃油 AI 市场预计价值</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">9.0%</div>
+                                <div class="stat-label">燃油 AI 市场的复合年增长率</div>
+                            </div>
+                        </div>
+                        <p class="mb-4">DAE 的核心优势在于其专有的前场控制器 (FCC) 和中央管理系统 (CMS)，它们收集和集中了大量的运营数据。现有基础设施提供了显著的先发优势，因为数据准备通常会占用 AI 项目 60-80% 的时间。</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-3 text-slate-600">DAE 的数据流优势</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-5 items-center gap-2 p-4 bg-slate-100 rounded-lg">
+                            <div class="diagram-box">前场设备<br>(加油机、电动汽车充电桩、ATG、传感器)</div>
+                            <div class="arrow md:rotate-0 rotate-90">&#10140;</div>
+                            <div class="diagram-box">DAE FCC<br>(前场控制器)</div>
+                            <div class="arrow md:rotate-0 rotate-90">&#10140;</div>
+                            <div class="diagram-box">DAE CMS<br>(中央管理系统)<br>实时数据中心</div>
+                        </div>
+                        <div class="text-center my-2"><span class="text-2xl text-slate-500">&#11015;</span></div>
+                        <div class="diagram-box w-full md:w-1/2 mx-auto">DAE AI 智能体<br>(可操作的情报)</div>
+                        <p class="mt-4 text-sm text-slate-600">这种集成的数据管道使 DAE 能够绕过大量数据准备障碍，加速 AI 开发并提供更可靠的洞察。</p>
                     </div>
-                    <div class="text-center my-2"><span class="text-2xl text-slate-500">&#11015;</span></div>
-                    <div class="diagram-box w-full md:w-1/2 mx-auto">DAE AI Agents<br>(Actionable Intelligence)</div>
-                    <p class="mt-4 text-sm text-slate-600">This integrated data pipeline allows DAE to bypass significant data preparation hurdles, accelerating AI development and delivering more reliable insights.</p>
                 </div>
             </section>
 
             <section id="ai-opportunity" class="section">
-                <h2 class="text-3xl font-semibold mb-6 text-slate-700">The AI Opportunity: Transforming Fuel Retail</h2>
+                <h2 class="text-3xl font-semibold mb-6 text-slate-700" data-i18n-key="aiOpportunityTitle">The AI Opportunity: Transforming Fuel Retail</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-6">DAE's AI agents are designed to address key operational areas within fuel retail companies. By leveraging the rich data from the CMS, these agents aim to deliver cost reductions, create competitive advantages, and enable faster execution across critical functions. Explore the potential of each agent below.</p>
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="p-6 bg-indigo-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-indigo-700 mb-2">IT Agent</h3>
-                            <p class="text-sm text-slate-600">Ensuring compliance, security, and robust data access.</p>
-                            <button onclick="navigateToSection('it-agent')" class="mt-3 text-indigo-600 hover:text-indigo-800 font-medium text-sm">Learn More &rarr;</button>
+                    <div data-lang="en">
+                        <p class="mb-6">DAE's AI agents are designed to address key operational areas within fuel retail companies. By leveraging the rich data from the CMS, these agents aim to deliver cost reductions, create competitive advantages, and enable faster execution across critical functions. Explore the potential of each agent below.</p>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="p-6 bg-indigo-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-indigo-700 mb-2">IT Agent</h3>
+                                <p class="text-sm text-slate-600">Ensuring compliance, security, and robust data access.</p>
+                                <button onclick="navigateToSection('it-agent')" class="mt-3 text-indigo-600 hover:text-indigo-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-sky-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-sky-700 mb-2">Finance Agent</h3>
+                                <p class="text-sm text-slate-600">Optimizing fuel cost, sales analysis, and financial forecasting.</p>
+                                <button onclick="navigateToSection('finance-agent')" class="mt-3 text-sky-600 hover:text-sky-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-emerald-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-emerald-700 mb-2">Asset Management</h3>
+                                <p class="text-sm text-slate-600">Streamlining engineering, predictive maintenance, and uptime.</p>
+                                <button onclick="navigateToSection('asset-agent')" class="mt-3 text-emerald-600 hover:text-emerald-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-amber-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-amber-700 mb-2">HSSE Agent</h3>
+                                <p class="text-sm text-slate-600">Enhancing health, safety, security, and environmental compliance.</p>
+                                <button onclick="navigateToSection('hsse-agent')" class="mt-3 text-amber-600 hover:text-amber-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-rose-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-rose-700 mb-2">Operations Agent</h3>
+                                <p class="text-sm text-slate-600">Improving station management and daily operational flow.</p>
+                                <button onclick="navigateToSection('ops-agent')" class="mt-3 text-rose-600 hover:text-rose-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-fuchsia-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-fuchsia-700 mb-2">Wetstock Agent</h3>
+                                <p class="text-sm text-slate-600">Precise fuel volume reconciliation and loss prevention.</p>
+                                <button onclick="navigateToSection('wetstock-agent')" class="mt-3 text-fuchsia-600 hover:text-fuchsia-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-cyan-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-cyan-700 mb-2">Logistics Agent</h3>
+                                <p class="text-sm text-slate-600">Optimizing fuel coordination and delivery from depot to station.</p>
+                                <button onclick="navigateToSection('logistics-agent')" class="mt-3 text-cyan-600 hover:text-cyan-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-lime-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-lime-700 mb-2">Marketing Agent</h3>
+                                <p class="text-sm text-slate-600">Driving customer promotion, personalization, and retention.</p>
+                                <button onclick="navigateToSection('marketing-agent')" class="mt-3 text-lime-600 hover:text-lime-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-violet-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-violet-700 mb-2">Pricing Agent</h3>
+                                <p class="text-sm text-slate-600">Optimizing pricing for profit maximization and customer loyalty.</p>
+                                <button onclick="navigateToSection('pricing-agent')" class="mt-3 text-violet-600 hover:text-violet-800 font-medium text-sm">Learn More &rarr;</button>
+                            </div>
                         </div>
-                        <div class="p-6 bg-sky-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-sky-700 mb-2">Finance Agent</h3>
-                            <p class="text-sm text-slate-600">Optimizing fuel cost, sales analysis, and financial forecasting.</p>
-                             <button onclick="navigateToSection('finance-agent')" class="mt-3 text-sky-600 hover:text-sky-800 font-medium text-sm">Learn More &rarr;</button>
-                        </div>
-                        <div class="p-6 bg-emerald-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-emerald-700 mb-2">Asset Management</h3>
-                            <p class="text-sm text-slate-600">Streamlining engineering, predictive maintenance, and uptime.</p>
-                            <button onclick="navigateToSection('asset-agent')" class="mt-3 text-emerald-600 hover:text-emerald-800 font-medium text-sm">Learn More &rarr;</button>
-                        </div>
-                        <div class="p-6 bg-amber-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-amber-700 mb-2">HSSE Agent</h3>
-                            <p class="text-sm text-slate-600">Enhancing health, safety, security, and environmental compliance.</p>
-                            <button onclick="navigateToSection('hsse-agent')" class="mt-3 text-amber-600 hover:text-amber-800 font-medium text-sm">Learn More &rarr;</button>
-                        </div>
-                        <div class="p-6 bg-rose-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-rose-700 mb-2">Operations Agent</h3>
-                            <p class="text-sm text-slate-600">Improving station management and daily operational flow.</p>
-                            <button onclick="navigateToSection('ops-agent')" class="mt-3 text-rose-600 hover:text-rose-800 font-medium text-sm">Learn More &rarr;</button>
-                        </div>
-                        <div class="p-6 bg-fuchsia-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-fuchsia-700 mb-2">Wetstock Agent</h3>
-                            <p class="text-sm text-slate-600">Precise fuel volume reconciliation and loss prevention.</p>
-                            <button onclick="navigateToSection('wetstock-agent')" class="mt-3 text-fuchsia-600 hover:text-fuchsia-800 font-medium text-sm">Learn More &rarr;</button>
-                        </div>
-                        <div class="p-6 bg-cyan-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-cyan-700 mb-2">Logistics Agent</h3>
-                            <p class="text-sm text-slate-600">Optimizing fuel coordination and delivery from depot to station.</p>
-                            <button onclick="navigateToSection('logistics-agent')" class="mt-3 text-cyan-600 hover:text-cyan-800 font-medium text-sm">Learn More &rarr;</button>
-                        </div>
-                        <div class="p-6 bg-lime-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-lime-700 mb-2">Marketing Agent</h3>
-                            <p class="text-sm text-slate-600">Driving customer promotion, personalization, and retention.</p>
-                            <button onclick="navigateToSection('marketing-agent')" class="mt-3 text-lime-600 hover:text-lime-800 font-medium text-sm">Learn More &rarr;</button>
-                        </div>
-                         <div class="p-6 bg-violet-50 rounded-lg shadow hover:shadow-xl transition-shadow">
-                            <h3 class="text-xl font-semibold text-violet-700 mb-2">Pricing Agent</h3>
-                            <p class="text-sm text-slate-600">Optimizing pricing for profit maximization and customer loyalty.</p>
-                            <button onclick="navigateToSection('pricing-agent')" class="mt-3 text-violet-600 hover:text-violet-800 font-medium text-sm">Learn More &rarr;</button>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-6">DAE 的 AI 智能体旨在解决燃油零售公司内部的关键运营领域。通过利用 CMS 的丰富数据，这些智能体旨在实现成本降低、创建竞争优势并实现关键功能的更快执行。请在下方探索每个智能体的潜力。</p>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="p-6 bg-indigo-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-indigo-700 mb-2">IT 智能体</h3>
+                                <p class="text-sm text-slate-600">确保合规性、安全性及数据访问的稳健性。</p>
+                                <button onclick="navigateToSection('it-agent')" class="mt-3 text-indigo-600 hover:text-indigo-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-sky-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-sky-700 mb-2">财务智能体</h3>
+                                <p class="text-sm text-slate-600">优化燃油成本、销售分析及财务预测。</p>
+                                <button onclick="navigateToSection('finance-agent')" class="mt-3 text-sky-600 hover:text-sky-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-emerald-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-emerald-700 mb-2">资产管理智能体</h3>
+                                <p class="text-sm text-slate-600">简化工程、预测性维护及正常运行时间。</p>
+                                <button onclick="navigateToSection('asset-agent')" class="mt-3 text-emerald-600 hover:text-emerald-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-amber-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-amber-700 mb-2">HSSE 智能体</h3>
+                                <p class="text-sm text-slate-600">提升健康、安全、安保及环境合规性。</p>
+                                <button onclick="navigateToSection('hsse-agent')" class="mt-3 text-amber-600 hover:text-amber-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-rose-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-rose-700 mb-2">运营智能体</h3>
+                                <p class="text-sm text-slate-600">改善站点管理及日常运营流程。</p>
+                                <button onclick="navigateToSection('ops-agent')" class="mt-3 text-rose-600 hover:text-rose-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-fuchsia-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-fuchsia-700 mb-2">油品库存智能体</h3>
+                                <p class="text-sm text-slate-600">精确的燃油量核对及损耗预防。</p>
+                                <button onclick="navigateToSection('wetstock-agent')" class="mt-3 text-fuchsia-600 hover:text-fuchsia-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-cyan-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-cyan-700 mb-2">物流智能体</h3>
+                                <p class="text-sm text-slate-600">优化燃油从油库到各零售站的协调及交付。</p>
+                                <button onclick="navigateToSection('logistics-agent')" class="mt-3 text-cyan-600 hover:text-cyan-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-lime-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-lime-700 mb-2">营销智能体</h3>
+                                <p class="text-sm text-slate-600">推动客户促销、个性化及留存。</p>
+                                <button onclick="navigateToSection('marketing-agent')" class="mt-3 text-lime-600 hover:text-lime-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
+                            <div class="p-6 bg-violet-50 rounded-lg shadow hover:shadow-xl transition-shadow">
+                                <h3 class="text-xl font-semibold text-violet-700 mb-2">定价智能体</h3>
+                                <p class="text-sm text-slate-600">优化定价以实现最佳利润和客户留存。</p>
+                                <button onclick="navigateToSection('pricing-agent')" class="mt-3 text-violet-600 hover:text-violet-800 font-medium text-sm">了解更多 &rarr;</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="it-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">IT Agent: Fortifying Digital and Physical Security</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="itAgentTitle">IT Agent: Fortifying Digital and Physical Security</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE IT AI agent is designed to act as an intelligent, vigilant guardian, delivering unprecedented security and compliance assurance across both digital and physical operations of fuel retail stations.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Protecting sensitive data from cyber threats.</li>
-                        <li>Preventing physical losses from theft and fraud.</li>
-                        <li>Limitations of manual monitoring leading to undetected shrink and compliance breaches.</li>
-                        <li>New vulnerabilities introduced by AI systems if not properly secured.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-indigo-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Real-time Fraud Prevention:</strong> Analyzes fueling patterns and transaction data to flag suspicious activities, reducing financial losses. (Outcome: Drastically reduced theft & misuse).</li>
-                        <li><strong>Digital Security Guard (In-Store):</strong> Monitors activity for suspicious behaviors, missed scans, or barcode swaps, alerting staff with video evidence. (Outcome: Minimized shrink & deterred theft).</li>
-                        <li><strong>AI Platform Protection:</strong> Employs robust security (data provenance, encryption, access controls) to protect the AI platform itself. (Outcome: Ensured integrity & trustworthiness of AI insights).</li>
-                        <li><strong>Enhanced Regulatory Compliance:</strong> Fortifies defense against evolving cyber risks. (Outcome: Protected assets & reputation).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE IT AI agent is designed to act as an intelligent, vigilant guardian, delivering unprecedented security and compliance assurance across both digital and physical operations of fuel retail stations.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Protecting sensitive data from cyber threats.</li>
+                            <li>Preventing physical losses from theft and fraud.</li>
+                            <li>Limitations of manual monitoring leading to undetected shrink and compliance breaches.</li>
+                            <li>New vulnerabilities introduced by AI systems if not properly secured.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-indigo-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Real-time Fraud Prevention:</strong> Analyzes fueling patterns and transaction data to flag suspicious activities, reducing financial losses. (Outcome: Drastically reduced theft & misuse).</li>
+                            <li><strong>Digital Security Guard (In-Store):</strong> Monitors activity for suspicious behaviors, missed scans, or barcode swaps, alerting staff with video evidence. (Outcome: Minimized shrink & deterred theft).</li>
+                            <li><strong>AI Platform Protection:</strong> Employs robust security (data provenance, encryption, access controls) to protect the AI platform itself. (Outcome: Ensured integrity & trustworthiness of AI insights).</li>
+                            <li><strong>Enhanced Regulatory Compliance:</strong> Fortifies defense against evolving cyber risks. (Outcome: Protected assets & reputation).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE IT AI 智能体旨在作为智能、警惕的守护者，为燃油零售站的数字和物理运营提供前所未有的安全和合规保障。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>保护敏感数据免受网络威胁。</li>
+                            <li>防止盗窃和欺诈造成的物理损失。</li>
+                            <li>手动监控的局限性导致未被发现的损耗和合规性漏洞。</li>
+                            <li>如果 AI 系统未得到妥善保护，将引入新的漏洞。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-indigo-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>实时欺诈预防：</strong> 分析加油模式和交易数据以标记可疑活动，减少财务损失。(成果：大幅减少盗窃和滥用)。</li>
+                            <li><strong>数字安全卫士（店内）：</strong> 监控活动以发现可疑行为、漏扫或条形码掉包，通过视频证据提醒员工。(成果：最大限度地减少损耗和阻止盗窃)。</li>
+                            <li><strong>AI 平台保护：</strong> 采用强大的安全措施（数据来源、加密、访问控制）来保护 AI 平台本身。(成果：确保 AI 洞察的完整性和可信度)。</li>
+                            <li><strong>增强监管合规性：</strong> 强化防御不断演变的网络风险。(成果：保护资产和声誉)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
             
             <section id="finance-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">Finance Agent: Driving Predictive Profitability</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="financeAgentTitle">Finance Agent: Driving Predictive Profitability</h2>
                  <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE Finance AI agent aims to transform financial operations from reactive to predictive, enabling maximized profit margins and optimized market share for fuel retailers.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Volatile fuel costs and unpredictable demand.</li>
-                        <li>Complexity in optimizing pricing across products and locations.</li>
-                        <li>Reactive financial analysis based on historical data, leading to missed opportunities.</li>
-                        <li>Suboptimal inventory levels and inefficient supply chain management.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-sky-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Accurate Fuel Demand Forecasting:</strong> Analyzes historical sales, weather, traffic, and economic indicators. (Outcome: 15-25% reduction in inventory holding costs, 20% improvement in supply chain efficiency).</li>
-                        <li><strong>Optimized Inventory & Delivery:</strong> Informs inventory management and delivery planning, synergizing with Wetstock and Logistics agents. (Outcome: Optimal fuel availability, reduced capital tie-up).</li>
-                        <li><strong>Granular Financial Insights:</strong> Provides insights into fuel costs and sales, automating reporting. (Outcome: Data-driven strategic decisions, protected profitability).</li>
-                        <li><strong>Agile Financial Strategy:</strong> Proactively responds to market dynamics. (Outcome: Maximized profit margins & market share).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE Finance AI agent aims to transform financial operations from reactive to predictive, enabling maximized profit margins and optimized market share for fuel retailers.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Volatile fuel costs and unpredictable demand.</li>
+                            <li>Complexity in optimizing pricing across products and locations.</li>
+                            <li>Reactive financial analysis based on historical data, leading to missed opportunities.</li>
+                            <li>Suboptimal inventory levels and inefficient supply chain management.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-sky-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Accurate Fuel Demand Forecasting:</strong> Analyzes historical sales, weather, traffic, and economic indicators. (Outcome: 15-25% reduction in inventory holding costs, 20% improvement in supply chain efficiency).</li>
+                            <li><strong>Optimized Inventory & Delivery:</strong> Informs inventory management and delivery planning, synergizing with Wetstock and Logistics agents. (Outcome: Optimal fuel availability, reduced capital tie-up).</li>
+                            <li><strong>Granular Financial Insights:</strong> Provides insights into fuel costs and sales, automating reporting. (Outcome: Data-driven strategic decisions, protected profitability).</li>
+                            <li><strong>Agile Financial Strategy:</strong> Proactively responds to market dynamics. (Outcome: Maximized profit margins & market share).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 财务 AI 智能体旨在将财务运营从被动转变为预测性，从而实现燃油零售商利润最大化和市场份额优化。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>燃油成本波动和需求不可预测。</li>
+                            <li>优化跨产品和地点的定价复杂性。</li>
+                            <li>基于历史数据的被动财务分析，导致错失机会。</li>
+                            <li>库存水平不理想和供应链管理效率低下。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-sky-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>准确的燃油需求预测：</strong> 分析历史销售、天气、交通和经济指标。(成果：库存持有成本降低 15-25%，供应链效率提高 20%)。</li>
+                            <li><strong>优化库存和交付：</strong> 为库存管理和交付计划提供信息，与油品库存和物流智能体协同。(成果：最佳燃油可用性，减少资金占用)。</li>
+                            <li><strong>精细化财务洞察：</strong> 提供燃油成本和销售洞察，自动化报告。(成果：数据驱动的战略决策，保护盈利能力)。</li>
+                            <li><strong>敏捷财务战略：</strong> 主动响应市场动态。(成果：利润最大化和市场份额)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section id="asset-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">Asset Management Agent: Ensuring Uninterrupted Operations</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="assetAgentTitle">Asset Management Agent: Ensuring Uninterrupted Operations</h2>
                  <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE Asset Management AI agent is engineered to deliver maximized uptime and reduced maintenance costs by shifting from reactive repairs to proactive, predictive maintenance.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Unplanned equipment failures (dispensers, payment terminals) leading to revenue loss and customer frustration.</li>
-                        <li>Costly emergency repairs.</li>
-                        <li>Inaccurate or delayed manual incident reporting, leading to inefficient technician dispatches and prolonged downtime.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-emerald-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Predictive Maintenance:</strong> Continuously analyzes IoT data from forecourt equipment to prevent failures. (Outcome: Significantly reduced unplanned downtime, seamless customer experience).</li>
-                        <li><strong>Intelligent Incident Reporting:</strong> Digitizes and classifies issues, generating structured tickets. (Outcome: Right technician dispatched with necessary info, reduced wasted travel & service calls).</li>
-                        <li><strong>Proactive ATG Alarm Management:</strong> Identifies and prioritizes ATG alarms. (Outcome: Saved time and costs from unnecessary investigations).</li>
-                        <li><strong>Enhanced Operational Reliability:</strong> Leads to higher customer satisfaction and stronger brand perception. (Outcome: Maximized uptime & reduced maintenance costs).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE Asset Management AI agent is engineered to deliver maximized uptime and reduced maintenance costs by shifting from reactive repairs to proactive, predictive maintenance.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Unplanned equipment failures (dispensers, payment terminals) leading to revenue loss and customer frustration.</li>
+                            <li>Costly emergency repairs.</li>
+                            <li>Inaccurate or delayed manual incident reporting, leading to inefficient technician dispatches and prolonged downtime.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-emerald-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Predictive Maintenance:</strong> Continuously analyzes IoT data from forecourt equipment to prevent failures. (Outcome: Significantly reduced unplanned downtime, seamless customer experience).</li>
+                            <li><strong>Intelligent Incident Reporting:</strong> Digitizes and classifies issues, generating structured tickets. (Outcome: Right technician dispatched with necessary info, reduced wasted travel & service calls).</li>
+                            <li><strong>Proactive ATG Alarm Management:</strong> Identifies and prioritizes ATG alarms. (Outcome: Saved time and costs from unnecessary investigations).</li>
+                            <li><strong>Enhanced Operational Reliability:</strong> Leads to higher customer satisfaction and stronger brand perception. (Outcome: Maximized uptime & reduced maintenance costs).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 资产管理 AI 智能体旨在通过从被动维修转向主动、预测性维护，实现最大化正常运行时间和降低维护成本。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>计划外设备故障（加油机、支付终端）导致收入损失和客户不满。</li>
+                            <li>昂贵的紧急维修。</li>
+                            <li>手动事件报告不准确或延迟，导致技术人员调度效率低下和停机时间延长。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-emerald-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>预测性维护：</strong> 持续分析前场设备物联网数据以防止故障。(成果：显著减少计划外停机时间，无缝客户体验)。</li>
+                            <li><strong>智能事件报告：</strong> 数字化并分类问题，生成结构化工单。(成果：派遣合适的技术人员，提供必要信息，减少不必要的差旅和服务呼叫)。</li>
+                            <li><strong>主动 ATG 报警管理：</strong> 识别并优先处理 ATG 报警。(成果：节省了不必要的调查时间和成本)。</li>
+                            <li><strong>增强运营可靠性：</strong> 带来更高的客户满意度和更强的品牌认知度。(成果：最大化正常运行时间和降低维护成本)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section id="hsse-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">HSSE Agent: Elevating Safety and Compliance Standards</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="hsseAgentTitle">HSSE Agent: Elevating Safety and Compliance Standards</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE HSSE (Health, Safety, Security, Environment) AI agent aims to establish a new benchmark for safety and regulatory compliance, significantly mitigating risks for fuel retailers.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>High-stakes environments with inherent hazards.</li>
-                        <li>Stringent HSSE compliance demands.</li>
-                        <li>Manual monitoring prone to human error, leading to potential accidents and fines.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-amber-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Continuous 24/7 Monitoring:</strong> Processes real-time data to detect hazards (e.g., smoking near pumps) and issues instant alerts. (Outcome: Incident prevention).</li>
-                        <li><strong>Advanced Anomaly Detection:</strong> Analyzes drone footage for leaks, damage; monitors PPE compliance. (Outcome: Proactive risk mitigation).</li>
-                        <li><strong>Automated Compliance & Protocol Adherence:</strong> Automates risk assessment, provides real-time answers to safety protocols from internal docs. (Outcome: Reduced human errors, improved safety standards).</li>
-                        <li><strong>Financial Risk Reduction:</strong> Minimizes potential fines, insurance premiums, and incident-related costs. (Outcome: HSSE as a financial risk mitigation tool).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE HSSE (Health, Safety, Security, Environment) AI agent aims to establish a new benchmark for safety and regulatory compliance, significantly mitigating risks for fuel retailers.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>High-stakes environments with inherent hazards.</li>
+                            <li>Stringent HSSE compliance demands.</li>
+                            <li>Manual monitoring prone to human error, leading to potential accidents and fines.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-amber-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Continuous 24/7 Monitoring:</strong> Processes real-time data to detect hazards (e.g., smoking near pumps) and issues instant alerts. (Outcome: Incident prevention).</li>
+                            <li><strong>Advanced Anomaly Detection:</strong> Analyzes drone footage for leaks, damage; monitors PPE compliance. (Outcome: Proactive risk mitigation).</li>
+                            <li><strong>Automated Compliance & Protocol Adherence:</strong> Automates risk assessment, provides real-time answers to safety protocols from internal docs. (Outcome: Reduced human errors, improved safety standards).</li>
+                            <li><strong>Financial Risk Reduction:</strong> Minimizes potential fines, insurance premiums, and incident-related costs. (Outcome: HSSE as a financial risk mitigation tool).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE HSSE（健康、安全、安保、环境）AI 智能体旨在建立安全和监管合规的新基准，显著降低燃油零售商的风险。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>具有固有危险的高风险环境。</li>
+                            <li>严格的 HSSE 合规要求。</li>
+                            <li>手动监控容易出现人为错误，导致潜在事故和罚款。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-amber-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>持续 24/7 监控：</strong> 处理实时数据以检测危险（例如，加油泵附近吸烟）并发出即时警报。(成果：事件预防)。</li>
+                            <li><strong>高级异常检测：</strong> 分析无人机视频以发现泄漏、损坏；监控 PPE 合规性。(成果：主动风险缓解)。</li>
+                            <li><strong>自动化合规和协议遵守：</strong> 自动化风险评估，从内部文档提供实时安全协议答案。(成果：减少人为错误，提高安全标准)。</li>
+                            <li><strong>财务风险降低：</strong> 最大限度地减少潜在罚款、保险费和与事件相关的成本。(成果：HSSE 作为财务风险缓解工具)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section id="ops-agent" class="section">
-                 <h2 class="text-3xl font-semibold mb-4 text-slate-700">Operations Agent: Streamlining Station Management</h2>
+                 <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="opsAgentTitle">Operations Agent: Streamlining Station Management</h2>
                  <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE Operations AI agent empowers station management to achieve uninterrupted daily operations and enhanced customer satisfaction through intelligent automation.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Interruptions and inefficiencies from manual tasks.</li>
-                        <li>Long customer queues leading to lost sales.</li>
-                        <li>Challenges in optimizing staffing and store layouts.</li>
-                        <li>Increased labor costs due to operational bottlenecks.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-rose-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>AI-Powered Checkout:</strong> Enables faster transactions with multi-item recognition and automated age estimation. (Outcome: Reduced human intervention & wait times, reduced losses).</li>
-                        <li><strong>Store Optimization Insights:</strong> Analyzes store data for optimized layouts, staffing, and front-end processes. (Outcome: Maximum efficiency).</li>
-                        <li><strong>Intelligent Queue Management:</strong> Monitors customer queues and people counting, alerting staff to long wait times. (Outcome: Smoother customer flow, improved service delivery).</li>
-                        <li><strong>Efficient, Customer-Centric Environment:</strong> Boosts productivity and minimizes operational friction. (Outcome: Uninterrupted daily operations & enhanced customer satisfaction).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE Operations AI agent empowers station management to achieve uninterrupted daily operations and enhanced customer satisfaction through intelligent automation.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Interruptions and inefficiencies from manual tasks.</li>
+                            <li>Long customer queues leading to lost sales.</li>
+                            <li>Challenges in optimizing staffing and store layouts.</li>
+                            <li>Increased labor costs due to operational bottlenecks.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-rose-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>AI-Powered Checkout:</strong> Enables faster transactions with multi-item recognition and automated age estimation. (Outcome: Reduced human intervention & wait times, reduced losses).</li>
+                            <li><strong>Store Optimization Insights:</strong> Analyzes store data for optimized layouts, staffing, and front-end processes. (Outcome: Maximum efficiency).</li>
+                            <li><strong>Intelligent Queue Management:</strong> Monitors customer queues and people counting, alerting staff to long wait times. (Outcome: Smoother customer flow, improved service delivery).</li>
+                            <li><strong>Efficient, Customer-Centric Environment:</strong> Boosts productivity and minimizes operational friction. (Outcome: Uninterrupted daily operations & enhanced customer satisfaction).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 运营 AI 智能体通过智能自动化，使站点管理能够实现不间断的日常运营和增强的客户满意度。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>手动任务造成的干扰和低效率。</li>
+                            <li>客户排队时间长导致销售损失。</li>
+                            <li>优化人员配置和商店布局的挑战。</li>
+                            <li>运营瓶颈导致劳动力成本增加。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-rose-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>AI 驱动的结账：</strong> 通过多项识别和自动化年龄估算实现更快的交易。(成果：减少人工干预和等待时间，减少损失)。</li>
+                            <li><strong>商店优化洞察：</strong> 分析商店数据以优化布局、人员配置和前端流程。(成果：最大效率)。</li>
+                            <li><strong>智能排队管理：</strong> 监控客户排队和人数统计，在等待时间超过预设阈值时提醒员工。(成果：更流畅的客户流，改进服务交付)。</li>
+                            <li><strong>高效、以客户为中心的环境：</strong> 提高生产力并最大限度地减少运营摩擦。(成果：不间断的日常运营和增强的客户满意度)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section id="wetstock-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">Wetstock Management Agent: Eliminating Fuel Loss</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="wetstockAgentTitle">Wetstock Management Agent: Eliminating Fuel Loss</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE Wetstock Management AI agent delivers quantifiable and immediate financial returns by providing real-time, pinpoint accuracy in fuel volume reconciliation.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Significant revenue loss from undetected inventory variance, fuel theft, meter drift, and temperature fluctuations.</li>
-                        <li>Time-consuming, error-prone manual reconciliation processes.</li>
-                        <li>Failure to pinpoint root causes of discrepancies, leading to millions in annual losses.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-fuchsia-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Real-Time Inventory Visibility & Loss Tracking:</strong> Precisely tracks fuel loss and identifies unusual consumption patterns. (Outcome: Unparalleled visibility, detection of theft/irregularities).</li>
-                        <li><strong>Proven Financial Impact:</strong> Demonstrated 64% reduction in tank gauge calibration variances and 15% reduction in investigation efforts. (Outcome: Substantial savings).</li>
-                        <li><strong>Root Cause Identification & Automated Investigation:</strong> Identifies controllable (meter drift, theft) and uncontrollable (temperature) losses. (Outcome: Saved time and resources on manual discrepancy resolution).</li>
-                        <li><strong>Direct Profitability Boost:</strong> Plugs major revenue leakage and optimizes operational efficiency. (Outcome: Significant boost to retailer's bottom line).</li>
-                    </ul>
-                     <p class="mt-4 text-sm text-slate-500">An undetected variance of just 0.15% can lead to losses exceeding €10,000 annually per site.</p>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE Wetstock Management AI agent delivers quantifiable and immediate financial returns by providing real-time, pinpoint accuracy in fuel volume reconciliation.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Significant revenue loss from undetected inventory variance, fuel theft, meter drift, and temperature fluctuations.</li>
+                            <li>Time-consuming, error-prone manual reconciliation processes.</li>
+                            <li>Failure to pinpoint root causes of discrepancies, leading to millions in annual losses.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-fuchsia-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Real-Time Inventory Visibility & Loss Tracking:</strong> Precisely tracks fuel loss and identifies unusual consumption patterns. (Outcome: Unparalleled visibility, detection of theft/irregularities).</li>
+                            <li><strong>Proven Financial Impact:</strong> Demonstrated 64% reduction in tank gauge calibration variances and 15% reduction in investigation efforts. (Outcome: Substantial savings).</li>
+                            <li><strong>Root Cause Identification & Automated Investigation:</strong> Identifies controllable (meter drift, theft) and uncontrollable (temperature) losses. (Outcome: Saved time and resources on manual discrepancy resolution).</li>
+                            <li><strong>Direct Profitability Boost:</strong> Plugs major revenue leakage and optimizes operational efficiency. (Outcome: Significant boost to retailer's bottom line).</li>
+                        </ul>
+                        <p class="mt-4 text-sm text-slate-500">An undetected variance of just 0.15% can lead to losses exceeding €10,000 annually per site.</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 油品库存管理 AI 智能体通过提供实时、精确的燃油量核对，带来可量化和即时的财务回报。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>未被发现的库存差异、燃油盗窃、流量计漂移和温度波动导致大量收入损失。</li>
+                            <li>耗时、易出错的手动核对过程。</li>
+                            <li>未能查明差异的根本原因，导致每年数百万的损失。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-fuchsia-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>实时库存可见性和损耗跟踪：</strong> 精确跟踪燃油损耗并识别异常消耗模式。(成果：无与伦比的可见性，检测盗窃/异常)。</li>
+                            <li><strong>经验证的财务影响：</strong> 储罐液位计校准差异减少 64%，调查工作减少 15%。(成果：大量节省)。</li>
+                            <li><strong>根本原因识别和自动化调查：</strong> 识别可控（流量计漂移、盗窃）和不可控（温度）损耗。(成果：节省了手动解决差异的时间和资源)。</li>
+                            <li><strong>直接盈利能力提升：</strong> 堵塞主要收入漏洞并优化运营效率。(成果：显著提升零售商的利润)。</li>
+                        </ul>
+                        <p class="mt-4 text-sm text-slate-500">即使是 0.15% 的未发现差异，也可能导致每个站点每年损失超过 10,000 欧元。</p>
+                    </div>
                 </div>
             </section>
 
             <section id="logistics-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">Logistics Agent: Optimizing Supply Chain Efficiency</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="logisticsAgentTitle">Logistics Agent: Optimizing Supply Chain Efficiency</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE Logistics AI agent ensures a highly efficient and resilient fuel supply chain, leading to significant reductions in operational costs and enhanced fuel availability.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Complex, high-cost fuel delivery operations.</li>
-                        <li>Fluctuating demand, traffic congestion, and HAZMAT regulations.</li>
-                        <li>Inefficient routing and inaccurate forecasting leading to fuel runouts or overstocking.</li>
-                        <li>Increased transportation costs.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-cyan-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Optimized Loads & Routes:</strong> Leverages real-time traffic data and HAZMAT regulations. (Outcome: Reduced overall logistics costs & fuel consumption).</li>
-                        <li><strong>Proactive Inventory Management:</strong> Integrates with demand forecasts (from Finance AI) to prevent runouts and overstocking. (Outcome: Optimal capital utilization).</li>
-                        <li><strong>Predictive Maintenance Integration:</strong> For critical supply chain components (storage tanks, pumps). (Outcome: Minimized disruptions, enhanced reliability).</li>
-                        <li><strong>Streamlined & Resilient Logistics:</strong> Ensures timely fuel delivery and minimizes environmental impact. (Outcome: Cost-effective, agile operation, enhanced supply chain resilience).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE Logistics AI agent ensures a highly efficient and resilient fuel supply chain, leading to significant reductions in operational costs and enhanced fuel availability.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Complex, high-cost fuel delivery operations.</li>
+                            <li>Fluctuating demand, traffic congestion, and HAZMAT regulations.</li>
+                            <li>Inefficient routing and inaccurate forecasting leading to fuel runouts or overstocking.</li>
+                            <li>Increased transportation costs.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-cyan-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Optimized Loads & Routes:</strong> Leverages real-time traffic data and HAZMAT regulations. (Outcome: Reduced overall logistics costs & fuel consumption).</li>
+                            <li><strong>Proactive Inventory Management:</strong> Integrates with demand forecasts (from Finance AI) to prevent runouts and overstocking. (Outcome: Optimal capital utilization).</li>
+                            <li><strong>Predictive Maintenance Integration:</strong> For critical supply chain components (storage tanks, pumps). (Outcome: Minimized disruptions, enhanced reliability).</li>
+                            <li><strong>Streamlined & Resilient Logistics:</strong> Ensures timely fuel delivery and minimizes environmental impact. (Outcome: Cost-effective, agile operation, enhanced supply chain resilience).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 物流 AI 智能体确保高效且有弹性的燃油供应链，从而显著降低运营成本并提高燃油可用性。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>复杂、高成本的燃油交付操作。</li>
+                            <li>需求波动、交通拥堵和危险品法规。</li>
+                            <li>低效的路线规划和不准确的预测导致燃油耗尽或库存过剩。</li>
+                            <li>运输成本增加。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-cyan-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>优化装载和路线：</strong> 利用实时交通数据和危险品法规。(成果：降低整体物流成本和燃油消耗)。</li>
+                            <li><strong>主动库存管理：</strong> 与需求预测（来自财务 AI）集成，以防止耗尽和库存过剩。(成果：最佳资本利用)。</li>
+                            <li><strong>预测性维护集成：</strong> 针对供应链中的关键组件（储罐、泵）。(成果：最大限度地减少中断，增强可靠性)。</li>
+                            <li><strong>精简且有弹性的物流：</strong> 确保及时燃油交付并最大限度地减少环境影响。(成果：经济高效、敏捷运营，增强供应链弹性)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section id="marketing-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">Marketing Agent: Cultivating Customer Loyalty</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="marketingAgentTitle">Marketing Agent: Cultivating Customer Loyalty</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE Marketing AI agent delivers hyper-personalized customer experiences that boost retention and significantly increase sales for fuel retailers.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Difficulty building lasting customer loyalty and driving non-fuel sales.</li>
-                        <li>Fragmented customer data and generic, ineffective marketing campaigns.</li>
-                        <li>Missed opportunities for personalization, leading to churn and suboptimal revenue.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-lime-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Personalized Interactions:</strong> Tailored fuel discounts and special offers on convenience items. (Outcome: Increased in-store/online sales, fostered repeat business).</li>
-                        <li><strong>Optimized Customer Metrics:</strong> AI-driven micro-segmentation to improve CLV, basket size, and visit frequency. (Outcome: Highly targeted and effective marketing).</li>
-                        <li><strong>Predictive Churn Prevention:</strong> Identifies churn risks early for proactive retention efforts. (Outcome: Targeted engagement before customers disengage).</li>
-                        <li><strong>Loyal Customer Base & Maximized Revenue:</strong> Intelligent, data-driven strategies with highly relevant incentives. (Outcome: Moving beyond generic promotions).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE Marketing AI agent delivers hyper-personalized customer experiences that boost retention and significantly increase sales for fuel retailers.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Difficulty building lasting customer loyalty and driving non-fuel sales.</li>
+                            <li>Fragmented customer data and generic, ineffective marketing campaigns.</li>
+                            <li>Missed opportunities for personalization, leading to churn and suboptimal revenue.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-lime-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Personalized Interactions:</strong> Tailored fuel discounts and special offers on convenience items. (Outcome: Increased in-store/online sales, fostered repeat business).</li>
+                            <li><strong>Optimized Customer Metrics:</strong> AI-driven micro-segmentation to improve CLV, basket size, and visit frequency. (Outcome: Highly targeted and effective marketing).</li>
+                            <li><strong>Predictive Churn Prevention:</strong> Identifies churn risks early for proactive retention efforts. (Outcome: Targeted engagement before customers disengage).</li>
+                            <li><strong>Loyal Customer Base & Maximized Revenue:</strong> Intelligent, data-driven strategies with highly relevant incentives. (Outcome: Moving beyond generic promotions).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 营销 AI 智能体提供超个性化的客户体验，从而提高留存率并显著增加燃油零售商的销售额。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>难以建立持久的客户忠诚度并推动非燃油销售。</li>
+                            <li>分散的客户数据和通用、无效的营销活动。</li>
+                            <li>错失个性化机会，导致客户流失和收入不理想。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-lime-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>个性化互动：</strong> 量身定制的燃油折扣和便利店商品的特别优惠。(成果：增加店内/在线销售，培养重复业务)。</li>
+                            <li><strong>优化客户指标：</strong> AI 驱动的微细分，以提高客户生命周期价值、购物篮大小和访问频率。(成果：高度针对性和有效的营销)。</li>
+                            <li><strong>预测性流失预防：</strong> 早期识别流失风险，以便主动留存。(成果：在客户脱离之前进行有针对性的互动)。</li>
+                            <li><strong>忠诚客户群和最大化收入：</strong> 智能、数据驱动的策略，提供高度相关的激励。(成果：超越通用促销)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section id="pricing-agent" class="section">
-                <h2 class="text-3xl font-semibold mb-4 text-slate-700">Pricing Agent: Maximizing Profitability Dynamically</h2>
+                <h2 class="text-3xl font-semibold mb-4 text-slate-700" data-i18n-key="pricingAgentTitle">Pricing Agent: Maximizing Profitability Dynamically</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">The DAE Pricing AI agent delivers maximized profit and enhanced customer retention through sophisticated, real-time dynamic pricing strategies.</p>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
-                    <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
-                        <li>Complex fuel pricing due to fluctuating demand, competitor actions, and product elasticity.</li>
-                        <li>Interplay between fuel and in-store sales complicating pricing.</li>
-                        <li>Reactive manual pricing adjustments failing to capture optimal profit opportunities.</li>
-                        <li>Suboptimal margins and lost revenue.</li>
-                    </ul>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-violet-700">DAE AI Agent Solution & Outcomes:</h4>
-                    <ul class="list-disc list-inside text-slate-700 space-y-1">
-                        <li><strong>Real-Time Dynamic Pricing:</strong> Monitors market conditions, competitor pricing, and macroeconomic indicators. (Outcome: Adaptive pricing that captures maximum margin).</li>
-                        <li><strong>Advanced Behavioral Learning:</strong> Uses neural networks to forecast demand, price elasticity, and identify profit opportunities. (Outcome: Increased profitability even in challenging markets).</li>
-                        <li><strong>Holistic Revenue Maximization:</strong> Integrates fuel and in-store sales data. (Outcome: Optimized pricing across the entire retail offering).</li>
-                        <li><strong>Superior Financial Performance:</strong> Intelligent, data-backed pricing decisions continuously refined, with human oversight for strategic alignment. (Outcome: Maximized profit & enhanced customer retention).</li>
-                    </ul>
+                    <div data-lang="en">
+                        <p class="mb-4">The DAE Pricing AI agent delivers maximized profit and enhanced customer retention through sophisticated, real-time dynamic pricing strategies.</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Current Pain Points:</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>Complex fuel pricing due to fluctuating demand, competitor actions, and product elasticity.</li>
+                            <li>Interplay between fuel and in-store sales complicating pricing.</li>
+                            <li>Reactive manual pricing adjustments failing to capture optimal profit opportunities.</li>
+                            <li>Suboptimal margins and lost revenue.</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-violet-700">DAE AI Agent Solution & Outcomes:</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>Real-Time Dynamic Pricing:</strong> Monitors market conditions, competitor pricing, and macroeconomic indicators. (Outcome: Adaptive pricing that captures maximum margin).</li>
+                            <li><strong>Advanced Behavioral Learning:</strong> Uses neural networks to forecast demand, price elasticity, and identify profit opportunities. (Outcome: Increased profitability even in challenging markets).</li>
+                            <li><strong>Holistic Revenue Maximization:</strong> Integrates fuel and in-store sales data. (Outcome: Optimized pricing across the entire retail offering).</li>
+                            <li><strong>Superior Financial Performance:</strong> Intelligent, data-backed pricing decisions continuously refined, with human oversight for strategic alignment. (Outcome: Maximized profit & enhanced customer retention).</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 定价 AI 智能体通过复杂、实时的动态定价策略，实现利润最大化和客户留存增强。</p>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">当前痛点：</h4>
+                        <ul class="list-disc list-inside mb-4 text-slate-600 space-y-1">
+                            <li>由于需求波动、竞争对手行动和产品弹性，燃油定价复杂。</li>
+                            <li>燃油和店内销售之间的相互作用使定价复杂化。</li>
+                            <li>被动的手动定价调整未能抓住最佳利润机会。</li>
+                            <li>利润率不理想和收入损失。</li>
+                        </ul>
+                        <h4 class="text-lg font-semibold mt-4 mb-2 text-violet-700">DAE AI 智能体解决方案及成果：</h4>
+                        <ul class="list-disc list-inside text-slate-700 space-y-1">
+                            <li><strong>实时动态定价：</strong> 监控市场状况、竞争对手定价和宏观经济指标。(成果：捕获最大利润的自适应定价)。</li>
+                            <li><strong>高级行为学习：</strong> 使用神经网络预测需求、价格弹性和识别利润机会。(成果：即使在充满挑战的市场中也能提高盈利能力)。</li>
+                            <li><strong>整体收入最大化：</strong> 集成燃油和店内销售数据。(成果：优化整个零售产品的定价)。</li>
+                            <li><strong>卓越的财务业绩：</strong> 智能、数据支持的定价决策持续完善，并有人工监督以确保战略一致性。(成果：利润最大化和客户留存增强)。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
             
             <section id="strategic-roadmap" class="section">
-                <h2 class="text-3xl font-semibold mb-6 text-slate-700">Strategic Roadmap</h2>
+                <h2 class="text-3xl font-semibold mb-6 text-slate-700" data-i18n-key="strategicRoadmapTitle">Strategic Roadmap</h2>
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">AI Agent Development Prioritization</h3>
-                    <p class="mb-4">DAE will prioritize AI agent development based on least development effort, lower complexity, and higher probability of immediate revenue. This is visualized using a Value vs. Complexity approach.</p>
-                    
-                    <div class="mb-6">
-                        <div class="flex border-b">
-                            <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none active" onclick="openTier(event, 'tier1')">Tier 1: High Priority</button>
-                            <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none" onclick="openTier(event, 'tier2')">Tier 2: Medium Priority</button>
-                            <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none" onclick="openTier(event, 'tier3')">Tier 3: Lower Priority</button>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="prioritizationTitle">AI Agent Development Prioritization</h3>
+                    <div data-lang="en">
+                        <p class="mb-4">DAE will prioritize AI agent development based on least development effort, lower complexity, and higher probability of immediate revenue. This is visualized using a Value vs. Complexity approach.</p>
+                        <div class="mb-6">
+                            <div class="flex border-b">
+                                <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none active" onclick="openTier(event, 'tier1')">Tier 1: High Priority</button>
+                                <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none" onclick="openTier(event, 'tier2')">Tier 2: Medium Priority</button>
+                                <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none" onclick="openTier(event, 'tier3')">Tier 3: Lower Priority</button>
+                            </div>
+                            <div id="tier1" class="tier-content mt-4">
+                                <h4 class="text-xl font-semibold text-indigo-700 mb-2">Quick Wins / Immediate Impact</h4>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>Wetstock Management Agent:</strong> Directly addresses quantifiable fuel loss. Proven ROI (e.g., 64% reduction in calibration variances). Relatively focused development.</li>
+                                    <li><strong>Pricing Optimization Agent:</strong> Directly impacts profitability and retention. Significant revenue upside. Human-in-the-loop approach practical.</li>
+                                </ul>
+                            </div>
+                            <div id="tier2" class="tier-content mt-4 hidden">
+                                <h4 class="text-xl font-semibold text-sky-700 mb-2">Strategic Value / Moderate Complexity</h4>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>Finance Agent (Demand Forecasting):</strong> Foundational for Wetstock & Logistics. Reduces inventory costs (15-25%).</li>
+                                    <li><strong>Asset Management Agent (Predictive Maintenance):</strong> Reduces unplanned downtime, improves customer experience. Requires IoT integration.</li>
+                                </ul>
+                            </div>
+                            <div id="tier3" class="tier-content mt-4 hidden">
+                                <h4 class="text-xl font-semibold text-amber-700 mb-2">Longer-Term / Higher Complexity</h4>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>Operations Agent:</strong> Improves customer experience. May involve complex computer vision.</li>
+                                    <li><strong>Logistics Agent:</strong> Optimizes delivery. Requires real-time traffic/HAZMAT data.</li>
+                                    <li><strong>Marketing Agent:</strong> Enhances loyalty. Deep customer behavior analysis.</li>
+                                    <li><strong>IT Agent (Comprehensive):</strong> Foundational but less immediate direct revenue. Highly complex (securing AI itself).</li>
+                                    <li><strong>HSSE Agent:</strong> Mitigates high-impact risks. Complex integration, high accuracy needed.</li>
+                                </ul>
+                            </div>
                         </div>
-
-                        <div id="tier1" class="tier-content mt-4">
-                            <h4 class="text-xl font-semibold text-indigo-700 mb-2">Quick Wins / Immediate Impact</h4>
-                            <ul class="list-disc list-inside space-y-2">
-                                <li><strong>Wetstock Management Agent:</strong> Directly addresses quantifiable fuel loss. Proven ROI (e.g., 64% reduction in calibration variances). Relatively focused development.</li>
-                                <li><strong>Pricing Optimization Agent:</strong> Directly impacts profitability and retention. Significant revenue upside. Human-in-the-loop approach practical.</li>
-                            </ul>
-                        </div>
-                        <div id="tier2" class="tier-content mt-4 hidden">
-                            <h4 class="text-xl font-semibold text-sky-700 mb-2">Strategic Value / Moderate Complexity</h4>
-                            <ul class="list-disc list-inside space-y-2">
-                                <li><strong>Finance Agent (Demand Forecasting):</strong> Foundational for Wetstock & Logistics. Reduces inventory costs (15-25%).</li>
-                                <li><strong>Asset Management Agent (Predictive Maintenance):</strong> Reduces unplanned downtime, improves customer experience. Requires IoT integration.</li>
-                            </ul>
-                        </div>
-                        <div id="tier3" class="tier-content mt-4 hidden">
-                            <h4 class="text-xl font-semibold text-amber-700 mb-2">Longer-Term / Higher Complexity</h4>
-                            <ul class="list-disc list-inside space-y-2">
-                                <li><strong>Operations Agent:</strong> Improves customer experience. May involve complex computer vision.</li>
-                                <li><strong>Logistics Agent:</strong> Optimizes delivery. Requires real-time traffic/HAZMAT data.</li>
-                                <li><strong>Marketing Agent:</strong> Enhances loyalty. Deep customer behavior analysis.</li>
-                                <li><strong>IT Agent (Comprehensive):</strong> Foundational but less immediate direct revenue. Highly complex (securing AI itself).</li>
-                                <li><strong>HSSE Agent:</strong> Mitigates high-impact risks. Complex integration, high accuracy needed.</li>
-                            </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 将根据开发工作量最少、复杂性较低和即时收入可能性较高来确定 AI 智能体开发的优先级。这通过价值与复杂性方法进行可视化。</p>
+                        <div class="mb-6">
+                            <div class="flex border-b">
+                                <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none active" onclick="openTier(event, 'tier1')">第一梯队：高优先级</button>
+                                <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none" onclick="openTier(event, 'tier2')">第二梯队：中等优先级</button>
+                                <button class="tab-button py-2 px-4 text-slate-600 hover:text-indigo-600 focus:outline-none" onclick="openTier(event, 'tier3')">第三梯队：较低优先级</button>
+                            </div>
+                            <div id="tier1" class="tier-content mt-4">
+                                <h4 class="text-xl font-semibold text-indigo-700 mb-2">快速胜利 / 即时影响</h4>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>油品库存管理智能体：</strong> 直接解决可量化的燃油损耗。经验证的投资回报率（例如，校准差异减少 64%）。开发相对集中。</li>
+                                    <li><strong>定价优化智能体：</strong> 直接影响盈利能力和留存率。收入潜力巨大。人机协作方法实用。</li>
+                                </ul>
+                            </div>
+                            <div id="tier2" class="tier-content mt-4 hidden">
+                                <h4 class="text-xl font-semibold text-sky-700 mb-2">战略价值 / 中等复杂性</h4>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>财务智能体（需求预测）：</strong> 油品库存和物流的基础。降低库存成本（15-25%）。</li>
+                                    <li><strong>资产管理智能体（预测性维护）：</strong> 减少计划外停机时间，改善客户体验。需要物联网集成。</li>
+                                </ul>
+                            </div>
+                            <div id="tier3" class="tier-content mt-4 hidden">
+                                <h4 class="text-xl font-semibold text-amber-700 mb-2">长期 / 更高复杂性</h4>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>运营智能体：</strong> 改善客户体验。可能涉及复杂的计算机视觉。</li>
+                                    <li><strong>物流智能体：</strong> 优化交付。需要实时交通/危险品数据。</li>
+                                    <li><strong>营销智能体：</strong> 增强忠诚度。深入的客户行为分析。</li>
+                                    <li><strong>IT 智能体（综合）：</strong> 基础性但直接收入较少。高度复杂（保护 AI 本身）。</li>
+                                    <li><strong>HSSE 智能体：</strong> 缓解高影响风险。复杂集成，需要高精度。</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Technical Plan</h3>
-                    <p class="mb-4">A robust technical architecture is key. This includes a solid data foundation, a flexible integration framework, and scalable deployment.</p>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="text-lg font-semibold text-indigo-700">1. Data Foundation & MLOps:</h4>
-                            <p class="text-sm">Leverage existing CMS. Implement data quality strategy (cleansing, governance). Adopt MLOps (e.g., ZenML, MLflow, Kubeflow) for model lifecycle management, crucial for a lean team. Use containerization (Docker, Kubernetes).</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="technicalPlanTitle">Technical Plan</h3>
+                    <div data-lang="en">
+                        <p class="mb-4">A robust technical architecture is key. This includes a solid data foundation, a flexible integration framework, and scalable deployment.</p>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-indigo-700">1. Data Foundation & MLOps:</h4>
+                                <p class="text-sm">Leverage existing CMS. Implement data quality strategy (cleansing, governance). Adopt MLOps (e.g., ZenML, MLflow, Kubeflow) for model lifecycle management, crucial for a lean team. Use containerization (Docker, Kubernetes).</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-indigo-700">2. Integration Framework (Middleware):</h4>
+                                <p class="text-sm">Hub-and-Spoke or Publish-Subscribe model. API Gateways for secure access to third-party CMS. Support industry standards (IFSF, OPC UA, Conexxus).</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-indigo-700">3. Scalability & Deployment:</h4>
+                                <p class="text-sm">Microservices architecture for agility and fault isolation. Containerization (Docker) orchestrated by Kubernetes for efficient deployment, including edge computing scenarios.</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="text-lg font-semibold text-indigo-700">2. Integration Framework (Middleware):</h4>
-                            <p class="text-sm">Hub-and-Spoke or Publish-Subscribe model. API Gateways for secure access to third-party CMS. Support industry standards (IFSF, OPC UA, Conexxus).</p>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-semibold text-indigo-700">3. Scalability & Deployment:</h4>
-                            <p class="text-sm">Microservices architecture for agility and fault isolation. Containerization (Docker) orchestrated by Kubernetes for efficient deployment, including edge computing scenarios.</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">稳健的技术架构是关键。这包括坚实的数据基础、灵活的集成框架和可扩展的部署。</p>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-indigo-700">1. 数据基础与 MLOps：</h4>
+                                <p class="text-sm">利用现有 CMS。实施数据质量策略（清洗、治理）。采用 MLOps（例如 ZenML、MLflow、Kubeflow）进行模型生命周期管理，这对精益团队至关重要。使用容器化（Docker、Kubernetes）。</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-indigo-700">2. 集成框架（中间件）：</h4>
+                                <p class="text-sm">中心辐射型或发布-订阅模式。API 网关用于安全访问第三方 CMS。支持行业标准（IFSF、OPC UA、Conexxus）。</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-indigo-700">3. 可扩展性与部署：</h4>
+                                <p class="text-sm">微服务架构用于敏捷性和故障隔离。由 Kubernetes 编排的容器化（Docker）用于高效部署，包括边缘计算场景。</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="financials" class="section">
-                <h2 class="text-3xl font-semibold mb-6 text-slate-700">Financials & Funding Strategy</h2>
+                <h2 class="text-3xl font-semibold mb-6 text-slate-700" data-i18n-key="financialsTitle">Financials & Funding Strategy</h2>
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Cost Projections</h3>
-                    <p class="mb-4">AI development involves significant investment. Key areas include data management, infrastructure, model development, team salaries, and MLOps platforms.</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="costProjectionsTitle">Cost Projections</h3>
+                    <div data-lang="en">
+                        <p class="mb-4">AI development involves significant investment. Key areas include data management, infrastructure, model development, team salaries, and MLOps platforms.</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">AI 开发涉及大量投资。主要领域包括数据管理、基础设施、模型开发、团队薪资和 MLOps 平台。</p>
+                    </div>
                     <div class="chart-container mb-6">
                         <canvas id="costProjectionsChart"></canvas>
                     </div>
-                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600">Team Cost (5 Persons, Annual Estimate):</h4>
+                    <h4 class="text-lg font-semibold mt-4 mb-2 text-slate-600" data-i18n-key="teamCostTitle">Team Cost (5 Persons, Annual Estimate):</h4>
                      <div class="chart-container mb-6">
                         <canvas id="teamCostChart"></canvas>
                     </div>
-                    <p class="text-sm text-slate-600">MLOps Platform Costs: Enterprise solutions can start from $62,500/year. Open-source options require skilled maintenance.</p>
+                    <div data-lang="en">
+                        <p class="text-sm text-slate-600">MLOps Platform Costs: Enterprise solutions can start from $62,500/year. Open-source options require skilled maintenance.</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="text-sm text-slate-600">MLOps 平台成本：企业解决方案每年起价 62,500 美元。开源选项需要熟练的维护。</p>
+                    </div>
                 </div>
 
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Leveraging Singapore Government Grants</h3>
-                    <p class="mb-4">As a Singapore SME with >30% local ownership, DAE can access grants to minimize equity dilution. Most require SG registration, local shareholding, and financial viability.</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="grantsTitle">Leveraging Singapore Government Grants</h3>
+                    <div data-lang="en">
+                        <p class="mb-4">As a Singapore SME with >30% local ownership, DAE can access grants to minimize equity dilution. Most require SG registration, local shareholding, and financial viability.</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">作为一家新加坡中小企业，且新加坡人持股超过 30%，DAE 可以获得补助金以最大限度地减少股权稀释。大多数补助金要求在新加坡注册、本地持股和财务可行性。</p>
+                    </div>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <button onclick="openModal('edgModal')" class="bg-indigo-500 text-white py-3 px-4 rounded-lg hover:bg-indigo-600 transition text-left">Enterprise Development Grant (EDG)<br><span class="text-xs font-normal">(Up to 70% of qualifying costs)</span></button>
-                        <button onclick="openModal('psgModal')" class="bg-sky-500 text-white py-3 px-4 rounded-lg hover:bg-sky-600 transition text-left">Productivity Solutions Grant (PSG)<br><span class="text-xs font-normal">(Up to 50% for pre-approved IT)</span></button>
-                        <button onclick="openModal('aisgModal')" class="bg-emerald-500 text-white py-3 px-4 rounded-lg hover:bg-emerald-600 transition text-left">AI Singapore (AISG) 100E<br><span class="text-xs font-normal">(Up to S$250k for custom AI)</span></button>
-                        <button onclick="openModal('eciModal')" class="bg-amber-500 text-white py-3 px-4 rounded-lg hover:bg-amber-600 transition text-left">Enterprise Compute Initiative<br><span class="text-xs font-normal">(Access to AI tools & compute)</span></button>
-                        <button onclick="openModal('eisModal')" class="bg-rose-500 text-white py-3 px-4 rounded-lg hover:bg-rose-600 transition text-left">Enterprise Innovation Scheme (EIS)<br><span class="text-xs font-normal">(400% tax deduction on R&D)</span></button>
-                        <button onclick="openModal('startupSgModal')" class="bg-fuchsia-500 text-white py-3 px-4 rounded-lg hover:bg-fuchsia-600 transition text-left">Startup SG Tech<br><span class="text-xs font-normal">(POC S$250k, POV S$500k)</span></button>
+                        <button onclick="openModal('edgModal')" class="bg-indigo-500 text-white py-3 px-4 rounded-lg hover:bg-indigo-600 transition text-left" data-i18n-key="edgButton">Enterprise Development Grant (EDG)<br><span class="text-xs font-normal">(Up to 70% of qualifying costs)</span></button>
+                        <button onclick="openModal('psgModal')" class="bg-sky-500 text-white py-3 px-4 rounded-lg hover:bg-sky-600 transition text-left" data-i18n-key="psgButton">Productivity Solutions Grant (PSG)<br><span class="text-xs font-normal">(Up to 50% for pre-approved IT)</span></button>
+                        <button onclick="openModal('aisgModal')" class="bg-emerald-500 text-white py-3 px-4 rounded-lg hover:bg-emerald-600 transition text-left" data-i18n-key="aisgButton">AI Singapore (AISG) 100E<br><span class="text-xs font-normal">(Up to S$250k for custom AI)</span></button>
+                        <button onclick="openModal('eciModal')" class="bg-amber-500 text-white py-3 px-4 rounded-lg hover:bg-amber-600 transition text-left" data-i18n-key="eciButton">Enterprise Compute Initiative<br><span class="text-xs font-normal">(Access to AI tools & compute)</span></button>
+                        <button onclick="openModal('eisModal')" class="bg-rose-500 text-white py-3 px-4 rounded-lg hover:bg-rose-600 transition text-left" data-i18n-key="eisButton">Enterprise Innovation Scheme (EIS)<br><span class="text-xs font-normal">(400% tax deduction on R&D)</span></button>
+                        <button onclick="openModal('startupSgModal')" class="bg-fuchsia-500 text-white py-3 px-4 rounded-lg hover:bg-fuchsia-600 transition text-left" data-i18n-key="startupSgButton">Startup SG Tech<br><span class="text-xs font-normal">(POC S$250k, POV S$500k)</span></button>
                     </div>
                 </div>
                 
                 <div id="edgModal" class="modal">
                     <div class="modal-content">
-                        <h4 class="text-xl font-semibold mb-3 text-indigo-700">Enterprise Development Grant (EDG)</h4>
-                        <p><strong>Purpose:</strong> Supports Singapore companies in upgrading, innovating, and growing, including automation and technology development.</p>
-                        <p><strong>Funding:</strong> Up to 70% of qualifying costs (consultancy, software/equipment, internal manpower, training).</p>
-                        <p><strong>Relevance for DAE:</strong> Highly relevant for custom AI agent development, covering salaries and software/equipment costs.</p>
-                        <button onclick="closeModal('edgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300">Close</button>
+                        <h4 class="text-xl font-semibold mb-3 text-indigo-700" data-i18n-key="edgModalTitle">Enterprise Development Grant (EDG)</h4>
+                        <p data-i18n-key="edgModalPurpose"><strong>Purpose:</strong> Supports Singapore companies in upgrading, innovating, and growing, including automation and technology development.</p>
+                        <p data-i18n-key="edgModalFunding"><strong>Funding:</strong> Up to 70% of qualifying costs (consultancy, software/equipment, internal manpower, training).</p>
+                        <p data-i18n-key="edgModalRelevance"><strong>Relevance for DAE:</strong> Highly relevant for custom AI agent development, covering salaries and software/equipment costs.</p>
+                        <button onclick="closeModal('edgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300" data-i18n-key="closeButton">Close</button>
                     </div>
                 </div>
                  <div id="psgModal" class="modal">
                     <div class="modal-content">
-                        <h4 class="text-xl font-semibold mb-3 text-sky-700">Productivity Solutions Grant (PSG)</h4>
-                        <p><strong>Purpose:</strong> Supports adoption of pre-approved IT solutions and equipment.</p>
-                        <p><strong>Funding:</strong> Up to 50% of eligible costs.</p>
-                        <p><strong>Relevance for DAE:</strong> Could be used for integrating "ready-made AI solutions" or tools (e.g., AI chatbots, inventory systems) into the platform, reducing custom development scope.</p>
-                        <button onclick="closeModal('psgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300">Close</button>
+                        <h4 class="text-xl font-semibold mb-3 text-sky-700" data-i18n-key="psgModalTitle">Productivity Solutions Grant (PSG)</h4>
+                        <p data-i18n-key="psgModalPurpose"><strong>Purpose:</strong> Supports adoption of pre-approved IT solutions and equipment.</p>
+                        <p data-i18n-key="psgModalFunding"><strong>Funding:</strong> Up to 50% of eligible costs.</p>
+                        <p data-i18n-key="psgModalRelevance"><strong>Relevance for DAE:</strong> Could be used for integrating "ready-made AI solutions" or tools (e.g., AI chatbots, inventory systems) into the platform, reducing custom development scope.</p>
+                        <button onclick="closeModal('psgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300" data-i18n-key="closeButton">Close</button>
                     </div>
                 </div>
                 <div id="aisgModal" class="modal">
                     <div class="modal-content">
-                        <h4 class="text-xl font-semibold mb-3 text-emerald-700">AI Singapore (AISG) 100E Programme</h4>
-                        <p><strong>Purpose:</strong> Co-funds AI projects not solvable by off-the-shelf solutions, focusing on measurable outcomes. Provides AI expertise.</p>
-                        <p><strong>Funding:</strong> AISG contributes up to S$250,000 per project.</p>
-                        <p><strong>Relevance for DAE:</strong> Ideal for complex, custom AI agents (e.g., Pricing, IT Security, HSSE) requiring bespoke models. Directly supports core AI R&D.</p>
-                        <button onclick="closeModal('aisgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300">Close</button>
+                        <h4 class="text-xl font-semibold mb-3 text-emerald-700" data-i18n-key="aisgModalTitle">AI Singapore (AISG) 100E Programme</h4>
+                        <p data-i18n-key="aisgModalPurpose"><strong>Purpose:</strong> Co-funds AI projects not solvable by off-the-shelf solutions, focusing on measurable outcomes. Provides AI expertise.</p>
+                        <p data-i18n-key="aisgModalFunding"><strong>Funding:</strong> AISG contributes up to S$250,000 per project.</p>
+                        <p data-i18n-key="aisgModalRelevance"><strong>Relevance for DAE:</strong> Ideal for complex, custom AI agents (e.g., Pricing, IT Security, HSSE) requiring bespoke models. Directly supports core AI R&D.</p>
+                        <button onclick="closeModal('aisgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300" data-i18n-key="closeButton">Close</button>
                     </div>
                 </div>
                 <div id="eciModal" class="modal">
                     <div class="modal-content">
-                        <h4 class="text-xl font-semibold mb-3 text-amber-700">Enterprise Compute Initiative</h4>
-                        <p><strong>Purpose:</strong> New S$150M initiative to accelerate AI adoption and advanced computing for businesses, especially SMEs.</p>
-                        <p><strong>Funding/Support:</strong> Partnership with major cloud providers for AI tools, compute power, expert consultancy.</p>
-                        <p><strong>Relevance for DAE:</strong> Addresses high infrastructure/computational costs for AI development (e.g., GPU instances), significantly offsetting cloud expenses.</p>
-                        <button onclick="closeModal('eciModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300">Close</button>
+                        <h4 class="text-xl font-semibold mb-3 text-amber-700" data-i18n-key="eciModalTitle">Enterprise Compute Initiative</h4>
+                        <p data-i18n-key="eciModalPurpose"><strong>Purpose:</strong> New S$150M initiative to accelerate AI adoption and advanced computing for businesses, especially SMEs.</p>
+                        <p data-i18n-key="eciModalFunding"><strong>Funding/Support:</strong> Partnership with major cloud providers for AI tools, compute power, expert consultancy.</p>
+                        <p data-i18n-key="eciModalRelevance"><strong>Relevance for DAE:</strong> Addresses high infrastructure/computational costs for AI development (e.g., GPU instances), significantly offsetting cloud expenses.</p>
+                        <button onclick="closeModal('eciModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300" data-i18n-key="closeButton">Close</button>
                     </div>
                 </div>
                 <div id="eisModal" class="modal">
                     <div class="modal-content">
-                        <h4 class="text-xl font-semibold mb-3 text-rose-700">Enterprise Innovation Scheme (EIS)</h4>
-                        <p><strong>Purpose:</strong> Encourages R&D and IP development.</p>
-                        <p><strong>Funding:</strong> 400% tax deductions on first S$400,000 of qualifying R&D expenses in SG. Option to convert up to S$100,000 expenditure into non-taxable cash payout.</p>
-                        <p><strong>Relevance for DAE:</strong> Powerful incentive for core AI development, drastically reducing effective R&D cost (staff, consumables, outsourced R&D).</p>
-                        <button onclick="closeModal('eisModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300">Close</button>
+                        <h4 class="text-xl font-semibold mb-3 text-rose-700" data-i18n-key="eisModalTitle">Enterprise Innovation Scheme (EIS)</h4>
+                        <p data-i18n-key="eisModalPurpose"><strong>Purpose:</strong> Encourages R&D and IP development.</p>
+                        <p data-i18n-key="eisModalFunding"><strong>Funding:</strong> 400% tax deductions on first S$400,000 of qualifying R&D expenses in SG. Option to convert up to S$100,000 expenditure into non-taxable cash payout.</p>
+                        <p data-i18n-key="eisModalRelevance"><strong>Relevance for DAE:</strong> Powerful incentive for core AI development, drastically reducing effective R&D cost (staff, consumables, outsourced R&D).</p>
+                        <button onclick="closeModal('eisModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300" data-i18n-key="closeButton">Close</button>
                     </div>
                 </div>
                 <div id="startupSgModal" class="modal">
                     <div class="modal-content">
-                        <h4 class="text-xl font-semibold mb-3 text-fuchsia-700">Startup SG Tech</h4>
-                        <p><strong>Purpose:</strong> Early-stage funding for tech startups to develop and commercialize groundbreaking proprietary technology.</p>
-                        <p><strong>Funding:</strong> Proof-of-Concept (POC) grants up to S$250,000; Proof-of-Viability (POV) grants up to S$500,000.</p>
-                        <p><strong>Relevance for DAE:</strong> If AI agents platform is a new venture/product line, provides crucial early capital for validating technical/commercial viability. Requires core R&D in SG.</p>
-                        <button onclick="closeModal('startupSgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300">Close</button>
+                        <h4 class="text-xl font-semibold mb-3 text-fuchsia-700" data-i18n-key="startupSgModalTitle">Startup SG Tech</h4>
+                        <p data-i18n-key="startupSgModalPurpose"><strong>Purpose:</strong> Early-stage funding for tech startups to develop and commercialize groundbreaking proprietary technology.</p>
+                        <p data-i18n-key="startupSgModalFunding"><strong>Funding:</strong> Proof-of-Concept (POC) grants up to S$250,000; Proof-of-Viability (POV) grants up to S$500,000.</p>
+                        <p data-i18n-key="startupSgModalRelevance"><strong>Relevance for DAE:</strong> If AI agents platform is a new venture/product line, provides crucial early capital for validating technical/commercial viability. Requires core R&D in SG.</p>
+                        <button onclick="closeModal('startupSgModal')" class="mt-4 bg-slate-200 py-2 px-4 rounded hover:bg-slate-300" data-i18n-key="closeButton">Close</button>
                     </div>
                 </div>
 
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Development Location Strategy</h3>
-                    <p class="mb-4">The choice of development location impacts cost, grant eligibility, and operations. A mixed model is recommended.</p>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-slate-200">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Location Model</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Pros</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Cons</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-slate-200 text-sm">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">China-Based (Shijiazhuang)</td>
-                                    <td class="px-6 py-4">Lower labor costs, Proximity to existing China customers, Large talent pool.</td>
-                                    <td class="px-6 py-4">Limited SG grant access, Data privacy/transfer complexities (PIPL), Higher corporate tax (25%).</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">Singapore-Based</td>
-                                    <td class="px-6 py-4">Maximized grant eligibility, Strong AI ecosystem & R&D support, Favorable IP protection, Lower corporate tax (17%).</td>
-                                    <td class="px-6 py-4">Higher labor costs, Higher cost of living, Competitive talent market.</td>
-                                </tr>
-                                <tr class="bg-indigo-50">
-                                    <td class="px-6 py-4 whitespace-nowrap font-medium text-indigo-700">Mixed Development Model (Recommended)</td>
-                                    <td class="px-6 py-4 text-indigo-700">Optimized cost-benefit, Grant eligibility (SG core R&D), Strategic oversight (SG), Mitigated risk.</td>
-                                    <td class="px-6 py-4 text-indigo-700">Increased management complexity, Cultural/communication nuances, Grant compliance nuances.</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="devLocationTitle">Development Location Strategy</h3>
+                    <div data-lang="en">
+                        <p class="mb-4">The choice of development location impacts cost, grant eligibility, and operations. A mixed model is recommended.</p>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-slate-200">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Location Model</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Pros</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Cons</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-slate-200 text-sm">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">China-Based (Shijiazhuang)</td>
+                                        <td class="px-6 py-4">Lower labor costs, Proximity to existing China customers, Large talent pool.</td>
+                                        <td class="px-6 py-4">Limited SG grant access, Data privacy/transfer complexities (PIPL), Higher corporate tax (25%).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">Singapore-Based</td>
+                                        <td class="px-6 py-4">Maximized grant eligibility, Strong AI ecosystem & R&D support, Favorable IP protection, Lower corporate tax (17%).</td>
+                                        <td class="px-6 py-4">Higher labor costs, Higher cost of living, Competitive talent market.</td>
+                                    </tr>
+                                    <tr class="bg-indigo-50">
+                                        <td class="px-6 py-4 whitespace-nowrap font-medium text-indigo-700">Mixed Development Model (Recommended)</td>
+                                        <td class="px-6 py-4 text-indigo-700">Optimized cost-benefit, Grant eligibility (SG core R&D), Strategic oversight (SG), Mitigated risk.</td>
+                                        <td class="px-6 py-4 text-indigo-700">Increased management complexity, Cultural/communication nuances, Grant compliance nuances.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4 text-sm text-slate-600"><strong>Recommendation:</strong> Anchor core AI R&D in Singapore (lean, high-caliber team) to leverage grants. Maintain larger, cost-effective development/QA team in China. Strategically allocate work based on grant eligibility.</p>
                     </div>
-                     <p class="mt-4 text-sm text-slate-600"><strong>Recommendation:</strong> Anchor core AI R&D in Singapore (lean, high-caliber team) to leverage grants. Maintain larger, cost-effective development/QA team in China. Strategically allocate work based on grant eligibility.</p>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">开发地点的选择影响成本、补助金资格和运营。建议采用混合模式。</p>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-slate-200">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">地点模式</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">优点</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">缺点</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-slate-200 text-sm">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">中国（石家庄）</td>
+                                        <td class="px-6 py-4">劳动力成本较低，靠近现有中国客户，人才库庞大。</td>
+                                        <td class="px-6 py-4">新加坡补助金获取有限，数据隐私/传输复杂性（PIPL），企业税较高（25%）。</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">新加坡</td>
+                                        <td class="px-6 py-4">补助金资格最大化，强大的 AI 生态系统和研发支持，有利的知识产权保护，企业税较低（17%）。</td>
+                                        <td class="px-6 py-4">劳动力成本较高，生活成本较高，人才市场竞争激烈。</td>
+                                    </tr>
+                                    <tr class="bg-indigo-50">
+                                        <td class="px-6 py-4 whitespace-nowrap font-medium text-indigo-700">混合开发模式（推荐）</td>
+                                        <td class="px-6 py-4 text-indigo-700">优化成本效益，补助金资格（新加坡核心研发），战略监督（新加坡），降低风险。</td>
+                                        <td class="px-6 py-4 text-indigo-700">管理复杂性增加，文化/沟通差异，补助金合规性细微差别。</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4 text-sm text-slate-600"><strong>建议：</strong> 将核心 AI 研发设在新加坡（精益、高素质团队）以利用补助金。在中国保留更大、更具成本效益的开发/质量保证团队。根据补助金资格战略性地分配工作。</p>
+                    </div>
                 </div>
 
                  <div class="bg-white p-6 rounded-lg shadow">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Revenue Model & Projections</h3>
-                    <p class="mb-4">DAE will offer AI agents as add-ons for existing CMS clients and as plugins for third-party CMS users. A <strong>value-based B2B SaaS pricing model</strong> is recommended, aligning cost with tangible business outcomes (e.g., time saved, revenue generated).</p>
-                    <p class="mb-2"><strong>Illustrative Financial Trajectory:</strong></p>
-                    <ul class="list-disc list-inside text-sm space-y-1">
-                        <li><strong>Year 1 (Pilot):</strong> High initial investment (Tier 1 agents, MLOps). Revenue from early adopters. Cash-flow negative, mitigated by SG grants.</li>
-                        <li><strong>Year 2-3 (Growth):</strong> Expand to broader China/APAC. Revenue growth accelerates. Develop Tier 2 agents. Continue grant leverage.</li>
-                        <li><strong>Year 4-5+ (Scale & Profitability):</strong> Penetrate Middle East/West. Scalable revenue (subscription/usage-based). Strong profitability.</li>
-                    </ul>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="revenueModelTitle">Revenue Model & Projections</h3>
+                    <div data-lang="en">
+                        <p class="mb-4">DAE will offer AI agents as add-ons for existing CMS clients and as plugins for third-party CMS users. A <strong>value-based B2B SaaS pricing model</strong> is recommended, aligning cost with tangible business outcomes (e.g., time saved, revenue generated).</p>
+                        <p class="mb-2"><strong>Illustrative Financial Trajectory:</strong></p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li><strong>Year 1 (Pilot):</strong> High initial investment (Tier 1 agents, MLOps). Revenue from early adopters. Cash-flow negative, mitigated by SG grants.</li>
+                            <li><strong>Year 2-3 (Growth):</strong> Expand to broader China/APAC. Revenue growth accelerates. Develop Tier 2 agents. Continue grant leverage.</li>
+                            <li><strong>Year 4-5+ (Scale & Profitability):</strong> Penetrate Middle East/West. Scalable revenue (subscription/usage-based). Strong profitability.</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE 将为现有 CMS 客户提供 AI 智能体作为附加组件，并为使用其他非 DAE CMS 或总部平台的客户提供扩展/插件，这些平台可摄取类似的前场数据。建议采用<strong>基于价值的 B2B SaaS 定价模型</strong>，将成本与切实的业务成果（例如，节省的时间、产生的收入）挂钩。</p>
+                        <p class="mb-2"><strong>财务轨迹示例：</strong></p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li><strong>第一年（试点）：</strong> 高额初始投资（第一梯队智能体，MLOps）。来自早期采用者的收入。现金流为负，通过新加坡补助金缓解。</li>
+                            <li><strong>第二至三年（增长）：</strong> 扩展到更广阔的中国/亚太市场。收入增长加速。开发第二梯队智能体。继续利用补助金。</li>
+                            <li><strong>第四至五年及以后（规模化与盈利）：</strong> 渗透中东和西方市场（包括澳新）。可扩展收入（订阅/按使用量付费）。强劲盈利能力。</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             <section id="market-expansion" class="section">
-                <h2 class="text-3xl font-semibold mb-6 text-slate-700">Market Expansion Strategy</h2>
+                <h2 class="text-3xl font-semibold mb-6 text-slate-700" data-i18n-key="marketExpansionTitle">Market Expansion Strategy</h2>
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Phased Market Entry</h3>
-                    <div class="relative">
-                        <div class="border-l-2 border-indigo-500 absolute h-full top-0 left-4"></div>
-                        <div class="mb-8 flex items-center w-full">
-                            <div class="bg-indigo-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">1</div>
-                            <div class="ml-6 p-4 bg-indigo-50 rounded-lg shadow w-full">
-                                <h4 class="font-semibold text-indigo-700">Phase 1: Current DAE Customers</h4>
-                                <p class="text-sm">Target existing clients in China & Southeast Asia. Leverage relationships, prove ROI, gather feedback. Lower customer acquisition cost.</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="marketEntryTitle">Phased Market Entry</h3>
+                    <div data-lang="en">
+                        <div class="relative">
+                            <div class="border-l-2 border-indigo-500 absolute h-full top-0 left-4"></div>
+                            <div class="mb-8 flex items-center w-full">
+                                <div class="bg-indigo-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">1</div>
+                                <div class="ml-6 p-4 bg-indigo-50 rounded-lg shadow w-full">
+                                    <h4 class="font-semibold text-indigo-700">Phase 1: Current DAE Customers</h4>
+                                    <p class="text-sm">Target existing clients in China & Southeast Asia. Leverage relationships, prove ROI, gather feedback. Lower customer acquisition cost.</p>
+                                </div>
+                            </div>
+                            <div class="mb-8 flex items-center w-full">
+                                <div class="bg-sky-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">2</div>
+                                <div class="ml-6 p-4 bg-sky-50 rounded-lg shadow w-full">
+                                    <h4 class="font-semibold text-sky-700">Phase 2: Broader China & APAC Market</h4>
+                                    <p class="text-sm">Localized marketing. Strategic partnerships. Mobile-first approach. (APAC Fuel Dispenser Market: $1.41B 2023 -> $2.25B 2030)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center w-full">
+                                <div class="bg-emerald-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">3</div>
+                                <div class="ml-6 p-4 bg-emerald-50 rounded-lg shadow w-full">
+                                    <h4 class="font-semibold text-emerald-700">Phase 3: Middle East & The West (incl. ANZ)</h4>
+                                    <p class="text-sm">Partnerships with established players. Emphasize unique value for EV charging, convenience stores. Comprehensive localization. (ME Fuel Station Market: $33.78B 2023 -> $51.3B 2030)</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-8 flex items-center w-full">
-                             <div class="bg-sky-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">2</div>
-                            <div class="ml-6 p-4 bg-sky-50 rounded-lg shadow w-full">
-                                <h4 class="font-semibold text-sky-700">Phase 2: Broader China & APAC Market</h4>
-                                <p class="text-sm">Localized marketing. Strategic partnerships. Mobile-first approach. (APAC Fuel Dispenser Market: $1.41B 2023 -> $2.25B 2030)</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <div class="relative">
+                            <div class="border-l-2 border-indigo-500 absolute h-full top-0 left-4"></div>
+                            <div class="mb-8 flex items-center w-full">
+                                <div class="bg-indigo-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">1</div>
+                                <div class="ml-6 p-4 bg-indigo-50 rounded-lg shadow w-full">
+                                    <h4 class="font-semibold text-indigo-700">第一阶段：现有 DAE 客户</h4>
+                                    <p class="text-sm">瞄准中国和东南亚的现有客户。利用现有关系，证明投资回报率，收集反馈。客户获取成本较低。</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex items-center w-full">
-                            <div class="bg-emerald-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">3</div>
-                            <div class="ml-6 p-4 bg-emerald-50 rounded-lg shadow w-full">
-                                <h4 class="font-semibold text-emerald-700">Phase 3: Middle East & The West (incl. ANZ)</h4>
-                                <p class="text-sm">Partnerships with established players. Emphasize unique value for EV charging, convenience stores. Comprehensive localization. (ME Fuel Station Market: $33.78B 2023 -> $51.3B 2030)</p>
+                            <div class="mb-8 flex items-center w-full">
+                                <div class="bg-sky-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">2</div>
+                                <div class="ml-6 p-4 bg-sky-50 rounded-lg shadow w-full">
+                                    <h4 class="font-semibold text-sky-700">第二阶段：更广阔的中国和亚太市场</h4>
+                                    <p class="text-sm">本地化营销。战略合作伙伴关系。移动优先方法。（亚太加油机市场：2023 年 14.1 亿美元 -> 2030 年 22.5 亿美元）</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center w-full">
+                                <div class="bg-emerald-500 rounded-full h-8 w-8 z-10 flex items-center justify-center text-white font-bold">3</div>
+                                <div class="ml-6 p-4 bg-emerald-50 rounded-lg shadow w-full">
+                                    <h4 class="font-semibold text-emerald-700">第三阶段：中东和西方（包括澳新）</h4>
+                                    <p class="text-sm">与成熟参与者建立伙伴关系。强调电动汽车充电、便利店的独特价值。全面本地化。（中东加油站市场：2023 年 337.8 亿美元 -> 2030 年 513 亿美元）</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                  <div class="bg-white p-6 rounded-lg shadow">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Data Privacy & Regulatory Compliance</h3>
-                    <p class="mb-4">Navigating complex global data privacy laws (PIPL in China, PDPA in Singapore, GDPR-like laws in ME, Privacy Act in ANZ) is critical. Proactive legal review, data localization accommodation, robust data governance, and privacy-preserving techniques are essential.</p>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="privacyComplianceTitle">Data Privacy & Regulatory Compliance</h3>
+                    <div data-lang="en">
+                        <p class="mb-4">Navigating complex global data privacy laws (PIPL in China, PDPA in Singapore, GDPR-like laws in ME, Privacy Act in ANZ) is critical. Proactive legal review, data localization accommodation, robust data governance, and privacy-preserving techniques are essential.</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">驾驭不同地区复杂且不断演变的数据隐私和安全法规至关重要。主动的法律审查、数据本地化适应、稳健的数据治理和隐私保护技术是必不可少的。</p>
+                    </div>
                 </div>
             </section>
 
             <section id="competitive-edge" class="section">
-                <h2 class="text-3xl font-semibold mb-6 text-slate-700">Competitive Advantage & Moats</h2>
+                <h2 class="text-3xl font-semibold mb-6 text-slate-700" data-i18n-key="competitiveEdgeTitle">Competitive Advantage & Moats</h2>
                 <div class="bg-white p-6 rounded-lg shadow mb-6">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Differentiating Factors</h3>
-                    <ul class="list-disc list-inside space-y-2 text-sm">
-                        <li><strong>Existing Data Infrastructure:</strong> Proprietary FCC-CMS provides clean, real-time data, a major head start over competitors (60-80% AI project time is data prep).</li>
-                        <li><strong>Deep Domain Expertise:</strong> Specialized in fuel/energy retail hardware & software, enabling relevant AI solutions.</li>
-                        <li><strong>Comprehensive Solution Vision:</strong> Suite of 9 integrated AI agents offers end-to-end optimization beyond siloed products.</li>
-                        <li><strong>Flexible Integration:</strong> Middleware for third-party CMS expands market reach significantly.</li>
-                    </ul>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="differentiatingFactorsTitle">Differentiating Factors</h3>
+                    <div data-lang="en">
+                        <ul class="list-disc list-inside space-y-2 text-sm">
+                            <li><strong>Existing Data Infrastructure:</strong> Proprietary FCC-CMS provides clean, real-time data, a major head start over competitors (60-80% AI project time is data prep).</li>
+                            <li><strong>Deep Domain Expertise:</strong> Specialized in fuel/energy retail hardware & software, enabling relevant AI solutions.</li>
+                            <li><strong>Comprehensive Solution Vision:</strong> Suite of 9 integrated AI agents offers end-to-end optimization beyond siloed products.</li>
+                            <li><strong>Flexible Integration:</strong> Middleware for third-party CMS expands market reach significantly.</li>
+                        </ul>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <ul class="list-disc list-inside space-y-2 text-sm">
+                            <li><strong>现有数据基础设施：</strong> 专有的 FCC-CMS 提供干净、实时的数据，比竞争对手拥有巨大的先发优势（AI 项目时间 60-80% 用于数据准备）。</li>
+                            <li><strong>深厚的领域专业知识：</strong> 专注于燃油/能源零售硬件和软件，能够提供相关的 AI 解决方案。</li>
+                            <li><strong>全面的解决方案愿景：</strong> 9 个集成 AI 智能体套件提供超越孤立产品的端到端优化。</li>
+                            <li><strong>灵活的集成：</strong> 第三方 CMS 的中间件显著扩大了市场范围。</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <h3 class="text-2xl font-semibold mb-4 text-slate-600">Building Sustainable Moats</h3>
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-600" data-i18n-key="buildingMoatsTitle">Building Sustainable Moats</h3>
                      <div class="grid md:grid-cols-2 gap-4">
                         <div class="p-4 bg-indigo-50 rounded-lg">
-                            <h4 class="font-semibold text-indigo-700">📊 Data Network Effect</h4>
-                            <p class="text-sm">More data -> better AI -> more customers -> more data.</p>
+                            <h4 class="font-semibold text-indigo-700" data-i18n-key="dataNetworkEffectTitle">📊 Data Network Effect</h4>
+                            <p class="text-sm" data-i18n-key="dataNetworkEffectDesc">More data -> better AI -> more customers -> more data.</p>
                         </div>
                         <div class="p-4 bg-sky-50 rounded-lg">
-                            <h4 class="font-semibold text-sky-700">🔗 High Switching Costs</h4>
-                            <p class="text-sm">Deep integration into core workflows makes migration disruptive and costly for clients.</p>
+                            <h4 class="font-semibold text-sky-700" data-i18n-key="switchingCostsTitle">🔗 High Switching Costs</h4>
+                            <p class="text-sm" data-i18n-key="switchingCostsDesc">Deep integration into core workflows makes migration disruptive and costly for clients.</p>
                         </div>
                         <div class="p-4 bg-emerald-50 rounded-lg">
-                            <h4 class="font-semibold text-emerald-700">💡 Proprietary Tech & IP</h4>
-                            <p class="text-sm">Unique AI algorithms, specialized models, and middleware framework protected by patents/trade secrets.</p>
+                            <h4 class="font-semibold text-emerald-700" data-i18n-key="proprietaryTechTitle">💡 Proprietary Tech & IP</h4>
+                            <p class="text-sm" data-i18n-key="proprietaryTechDesc">Unique AI algorithms, specialized models, and middleware framework protected by patents/trade secrets.</p>
                         </div>
                         <div class="p-4 bg-amber-50 rounded-lg">
-                            <h4 class="font-semibold text-amber-700">⭐ Brand & Reputation</h4>
-                            <p class="text-sm">Early successes and ROI build trust and loyalty.</p>
+                            <h4 class="font-semibold text-amber-700" data-i18n-key="brandReputationTitle">⭐ Brand & Reputation</h4>
+                            <p class="text-sm" data-i18n-key="brandReputationDesc">Early successes and ROI build trust and loyalty.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <section id="conclusion" class="section">
-                <h2 class="text-3xl font-semibold mb-6 text-slate-700">Conclusion & Recommendations</h2>
+                <h2 class="text-3xl font-semibold mb-6 text-slate-700" data-i18n-key="conclusionTitle">Conclusion & Recommendations</h2>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <p class="mb-4">DAE IT Solutions is uniquely positioned with its data infrastructure and strategic plan to lead AI-driven transformation in fuel retail. The prioritized AI agents, coupled with a smart funding and market entry strategy, pave the way for success.</p>
-                    <h3 class="text-xl font-semibold mt-6 mb-3 text-slate-600">Key Recommendations:</h3>
-                    <ul class="list-decimal list-inside space-y-2 text-sm">
-                        <li>Execute Tier 1 AI Agent development (Wetstock, Pricing) with precision, focusing on quantifiable ROI.</li>
-                        <li>Invest in MLOps infrastructure and expertise, upskilling the team.</li>
-                        <li>Develop a scalable middleware integration framework supporting industry standards.</li>
-                        <li>Ensure proactive regulatory compliance and robust data governance for all target markets.</li>
-                        <li>Cultivate strategic partnerships for market expansion.</li>
-                        <li>Maintain a human-in-the-loop approach for AI-driven decisions.</li>
-                        <li>Emphasize value-based pricing for AI agents.</li>
-                    </ul>
-                    <p class="mt-6 font-semibold">By meticulously executing this roadmap, DAE can establish itself as a leader in the intelligent automation of the global fuel and energy retail industry.</p>
+                    <div data-lang="en">
+                        <p class="mb-4">DAE IT Solutions is uniquely positioned with its data infrastructure and strategic plan to lead AI-driven transformation in fuel retail. The prioritized AI agents, coupled with a smart funding and market entry strategy, pave the way for success.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-3 text-slate-600">Key Recommendations:</h3>
+                        <ul class="list-decimal list-inside space-y-2 text-sm">
+                            <li>Execute Tier 1 AI Agent development with precision, focusing on quantifiable ROI.</li>
+                            <li>Invest in MLOps infrastructure and expertise, upskilling the team.</li>
+                            <li>Develop a scalable middleware integration framework supporting industry standards.</li>
+                            <li>Ensure proactive regulatory compliance and robust data governance for all target markets.</li>
+                            <li>Cultivate strategic partnerships for market expansion.</li>
+                            <li>Maintain a human-in-the-loop approach for AI-driven decisions.</li>
+                            <li>Emphasize value-based pricing for AI agents.</li>
+                        </ul>
+                        <p class="mt-6 font-semibold">By meticulously executing this roadmap, DAE can establish itself as a leader in the intelligent automation of the global fuel and energy retail industry.</p>
+                    </div>
+                    <div data-lang="zh" class="hidden">
+                        <p class="mb-4">DAE IT Solutions 凭借其数据基础设施和战略计划，在燃油零售领域引领 AI 驱动的转型方面具有独特的优势。优先考虑的 AI 智能体，加上智能的融资和市场进入策略，为成功铺平了道路。</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-3 text-slate-600">主要建议：</h3>
+                        <ul class="list-decimal list-inside space-y-2 text-sm">
+                            <li>精确执行第一梯队 AI 智能体开发（油品库存、定价），重点关注可量化的投资回报率。</li>
+                            <li>投资 MLOps 基础设施和专业知识，提升团队技能。</li>
+                            <li>开发可扩展的中间件集成框架，支持行业标准。</li>
+                            <li>确保所有目标市场的主动监管合规和稳健的数据治理。</li>
+                            <li>培养战略合作伙伴关系以拓展市场。</li>
+                            <li>对 AI 驱动的决策保持人机协作方法。</li>
+                            <li>强调 AI 智能体的基于价值的定价。</li>
+                        </ul>
+                        <p class="mt-6 font-semibold">通过精心执行此路线图，DAE 可以将自身定位为全球燃油和能源零售行业智能自动化的领导者。</p>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
     <script>
+        const translations = {
+            en: {
+                appTitle: "DAE AI Agents",
+                navOverview: "Overview",
+                navAIOpportunity: "AI Opportunity",
+                navAIDeepDive: "AI Agent Deep Dive",
+                navITAgent: "IT Agent",
+                navFinanceAgent: "Finance Agent",
+                navAssetAgent: "Asset Management",
+                navHSSEAgent: "HSSE Agent",
+                navOpsAgent: "Operations Agent",
+                navWetstockAgent: "Wetstock Agent",
+                navLogisticsAgent: "Logistics Agent",
+                navMarketingAgent: "Marketing Agent",
+                navPricingAgent: "Pricing Agent",
+                navStrategicRoadmap: "Strategic Roadmap",
+                navFinancials: "Financials & Funding",
+                navMarketExpansion: "Market Expansion",
+                navCompetitiveEdge: "Competitive Edge",
+                navConclusion: "Conclusion",
+                overviewTitle: "Executive Summary & DAE's Advantage",
+                aiOpportunityTitle: "The AI Opportunity: Transforming Fuel Retail",
+                itAgentTitle: "IT Agent: Fortifying Digital and Physical Security",
+                financeAgentTitle: "Finance Agent: Driving Predictive Profitability",
+                assetAgentTitle: "Asset Management Agent: Ensuring Uninterrupted Operations",
+                hsseAgentTitle: "HSSE Agent: Elevating Safety and Compliance Standards",
+                opsAgentTitle: "Operations Agent: Streamlining Station Management",
+                wetstockAgentTitle: "Wetstock Management Agent: Eliminating Fuel Loss",
+                logisticsAgentTitle: "Logistics Agent: Optimizing Supply Chain Efficiency",
+                marketingAgentTitle: "Marketing Agent: Cultivating Customer Loyalty",
+                pricingAgentTitle: "Pricing Agent: Maximizing Profitability Dynamically",
+                strategicRoadmapTitle: "Strategic Roadmap",
+                prioritizationTitle: "AI Agent Development Prioritization",
+                technicalPlanTitle: "Technical Plan",
+                financialsTitle: "Financials & Funding Strategy",
+                costProjectionsTitle: "Cost Projections",
+                teamCostTitle: "Team Cost (5 Persons, Annual Estimate):",
+                grantsTitle: "Leveraging Singapore Government Grants",
+                edgButton: "Enterprise Development Grant (EDG)<br><span class=\"text-xs font-normal\">(Up to 70% of qualifying costs)</span>",
+                psgButton: "Productivity Solutions Grant (PSG)<br><span class=\"text-xs font-normal\">(Up to 50% for pre-approved IT)</span>",
+                aisgButton: "AI Singapore (AISG) 100E<br><span class=\"text-xs font-normal\">(Up to S$250k for custom AI)</span>",
+                eciButton: "Enterprise Compute Initiative<br><span class=\"text-xs font-normal\">(Access to AI tools & compute)</span>",
+                eisButton: "Enterprise Innovation Scheme (EIS)<br><span class=\"text-xs font-normal\">(400% tax deduction on R&D)</span>",
+                startupSgButton: "Startup SG Tech<br><span class=\"text-xs font-normal\">(POC S$250k, POV S$500k)</span>",
+                edgModalTitle: "Enterprise Development Grant (EDG)",
+                edgModalPurpose: "<strong>Purpose:</strong> Supports Singapore companies in upgrading, innovating, and growing, including automation and technology development.",
+                edgModalFunding: "<strong>Funding:</strong> Up to 70% of qualifying costs (consultancy, software/equipment, internal manpower, training).",
+                edgModalRelevance: "<strong>Relevance for DAE:</strong> Highly relevant for custom AI agent development, covering salaries and software/equipment costs.",
+                psgModalTitle: "Productivity Solutions Grant (PSG)",
+                psgModalPurpose: "<strong>Purpose:</strong> Supports adoption of pre-approved IT solutions and equipment.",
+                psgModalFunding: "<strong>Funding:</strong> Up to 50% of eligible costs.",
+                psgModalRelevance: "<strong>Relevance for DAE:</strong> Could be used for integrating \"ready-made AI solutions\" or tools (e.g., AI chatbots, inventory systems) into the platform, reducing custom development scope.",
+                aisgModalTitle: "AI Singapore (AISG) 100E Programme",
+                aisgModalPurpose: "<strong>Purpose:</strong> Co-funds AI projects not solvable by off-the-shelf solutions, focusing on measurable outcomes. Provides AI expertise.",
+                aisgModalFunding: "<strong>Funding:</strong> AISG contributes up to S$250,000 per project.",
+                aisgModalRelevance: "<strong>Relevance for DAE:</strong> Ideal for complex, custom AI agents (e.g., Pricing, IT Security, HSSE) requiring bespoke models. Directly supports core AI R&D.",
+                eciModalTitle: "Enterprise Compute Initiative",
+                eciModalPurpose: "<strong>Purpose:</strong> New S$150M initiative to accelerate AI adoption and advanced computing for businesses, especially SMEs.",
+                eciModalFunding: "<strong>Funding/Support:</strong> Partnership with major cloud providers for AI tools, compute power, expert consultancy.",
+                eciModalRelevance: "<strong>Relevance for DAE:</strong> Addresses high infrastructure/computational costs for AI development (e.g., GPU instances), significantly offsetting cloud expenses.",
+                eisModalTitle: "Enterprise Innovation Scheme (EIS)",
+                eisModalPurpose: "<strong>Purpose:</strong> Encourages R&D and IP development.",
+                eisModalFunding: "<strong>Funding:</strong> 400% tax deductions on first S$400,000 of qualifying R&D expenses in SG. Option to convert up to S$100,000 expenditure into non-taxable cash payout.",
+                eisModalRelevance: "<strong>Relevance for DAE:</strong> Powerful incentive for core AI development, drastically reducing effective R&D cost (staff, consumables, outsourced R&D).",
+                startupSgModalTitle: "Startup SG Tech",
+                startupSgModalPurpose: "<strong>Purpose:</strong> Early-stage funding for tech startups to develop and commercialize groundbreaking proprietary technology.",
+                startupSgModalFunding: "<strong>Funding:</strong> Proof-of-Concept (POC) grants up to S$250,000; Proof-of-Viability (POV) grants up to S$500,000.",
+                startupSgModalRelevance: "<strong>Relevance for DAE:</strong> If AI agents platform is a new venture/product line, provides crucial early capital for validating technical/commercial viability. Requires core R&D in SG.",
+                closeButton: "Close",
+                devLocationTitle: "Development Location Strategy",
+                revenueModelTitle: "Revenue Model & Projections",
+                marketExpansionTitle: "Market Expansion Strategy",
+                marketEntryTitle: "Phased Market Entry",
+                privacyComplianceTitle: "Data Privacy & Regulatory Compliance",
+                competitiveEdgeTitle: "Competitive Advantage & Moats",
+                differentiatingFactorsTitle: "Differentiating Factors",
+                buildingMoatsTitle: "Building Sustainable Moats",
+                dataNetworkEffectTitle: "📊 Data Network Effect",
+                dataNetworkEffectDesc: "More data -> better AI -> more customers -> more data.",
+                switchingCostsTitle: "🔗 High Switching Costs",
+                switchingCostsDesc: "Deep integration into core workflows makes migration disruptive and costly for clients.",
+                proprietaryTechTitle: "💡 Proprietary Tech & IP",
+                proprietaryTechDesc: "Unique AI algorithms, specialized models, and middleware framework protected by patents/trade secrets.",
+                brandReputationTitle: "⭐ Brand & Reputation",
+                brandReputationDesc: "Early successes and ROI build trust and loyalty.",
+                conclusionTitle: "Conclusion & Recommendations",
+                chartCostLabels: ['Data Acq. & Mgmt', 'Data Cleaning/Labeling', 'AI Model Dev (Adv. DL)', 'Integration', 'Annual Maintenance'],
+                chartCostDataset1: 'Min Estimated Cost (USD)',
+                chartCostDataset2: 'Max Estimated Cost (USD)',
+                chartTeamLabels: ['China-Based Team', 'Singapore-Based Team', 'Mixed Model (Est.)'],
+                chartTeamDataset1: 'Min Annual Cost (USD Thousands)',
+                chartTeamDataset2: 'Max Annual Cost (USD Thousands)',
+                chartYCurrencyTitle: 'Cost (USD Thousands)',
+                chartYPercentageTitle: 'Percentage (%)',
+                chartYCostLogTitle: 'Cost (USD - Log Scale)'
+            },
+            zh: {
+                appTitle: "DAE AI 智能体",
+                navOverview: "概述",
+                navAIOpportunity: "AI 机遇",
+                navAIDeepDive: "AI 智能体深入探讨",
+                navITAgent: "IT 智能体",
+                navFinanceAgent: "财务智能体",
+                navAssetAgent: "资产管理智能体",
+                navHSSEAgent: "HSSE 智能体",
+                navOpsAgent: "运营智能体",
+                navWetstockAgent: "油品库存智能体",
+                navLogisticsAgent: "物流智能体",
+                navMarketingAgent: "营销智能体",
+                navPricingAgent: "定价智能体",
+                navStrategicRoadmap: "战略路线图",
+                navFinancials: "财务与融资",
+                navMarketExpansion: "市场拓展",
+                navCompetitiveEdge: "竞争优势",
+                navConclusion: "总结",
+                overviewTitle: "执行摘要与 DAE 优势",
+                aiOpportunityTitle: "AI 机遇：变革燃油零售",
+                itAgentTitle: "IT 智能体：强化数字与物理安全",
+                financeAgentTitle: "财务智能体：推动预测性盈利能力",
+                assetAgentTitle: "资产管理智能体：确保不间断运营",
+                hsseAgentTitle: "HSSE 智能体：提升安全与合规标准",
+                opsAgentTitle: "运营智能体：简化站点管理",
+                wetstockAgentTitle: "油品库存管理智能体：消除燃油损耗",
+                logisticsAgentTitle: "物流智能体：优化供应链效率",
+                marketingAgentTitle: "营销智能体：培养客户忠诚度",
+                pricingAgentTitle: "定价智能体：动态最大化盈利能力",
+                strategicRoadmapTitle: "战略路线图",
+                prioritizationTitle: "AI 智能体开发优先级",
+                technicalPlanTitle: "技术计划",
+                financialsTitle: "财务与融资策略",
+                costProjectionsTitle: "成本预测",
+                teamCostTitle: "团队成本（5 人，年度估算）：",
+                grantsTitle: "利用新加坡政府补助金",
+                edgButton: "企业发展补助金 (EDG)<br><span class=\"text-xs font-normal\">(最高可达合格成本的 70%)</span>",
+                psgButton: "生产力解决方案补助金 (PSG)<br><span class=\"text-xs font-normal\">(预批准 IT 项目最高 50%)</span>",
+                aisgButton: "新加坡 AI (AISG) 100E<br><span class=\"text-xs font-normal\">(定制 AI 最高 S$25 万)</span>",
+                eciButton: "企业计算计划<br><span class=\"text-xs font-normal\">(获取 AI 工具和计算资源)</span>",
+                eisButton: "企业创新计划 (EIS)<br><span class=\"text-xs font-normal\">(研发费用 400% 税收减免)</span>",
+                startupSgButton: "Startup SG Tech<br><span class=\"text-xs font-normal\">(POC S$25 万, POV S$50 万)</span>",
+                edgModalTitle: "企业发展补助金 (EDG)",
+                edgModalPurpose: "<strong>目的：</strong> 支持新加坡公司升级、创新和发展业务，包括自动化和技术开发。",
+                edgModalFunding: "<strong>资金：</strong> 最高可达合格成本的 70%（咨询、软件/设备、内部人力、培训）。",
+                edgModalRelevance: "<strong>与 DAE 的相关性：</strong> 与 DAE 的定制 AI 智能体开发高度相关，涵盖薪资和软件/设备成本。",
+                psgModalTitle: "生产力解决方案补助金 (PSG)",
+                psgModalPurpose: "<strong>目的：</strong> 支持采用预批准的 IT 解决方案和设备。",
+                psgModalFunding: "<strong>资金：</strong> 最高可达合格成本的 50%。",
+                psgModalRelevance: "<strong>与 DAE 的相关性：</strong> 可用于将“现成 AI 解决方案”或工具（例如 AI 聊天机器人、库存系统）集成到平台中，从而减少定制开发的范围。",
+                aisgModalTitle: "新加坡 AI (AISG) 100E 计划",
+                aisgModalPurpose: "<strong>目的：</strong> 共同资助无法通过现成解决方案解决的 AI 项目，重点关注可衡量的成果。提供 AI 专业知识。",
+                aisgModalFunding: "<strong>资金：</strong> AISG 每个项目最高资助 S$250,000。",
+                aisgModalRelevance: "<strong>与 DAE 的相关性：</strong> 适用于需要定制模型（例如定价、IT 安全、HSSE）的复杂定制 AI 智能体。直接支持核心 AI 研发。",
+                eciModalTitle: "企业计算计划",
+                eciModalPurpose: "<strong>目的：</strong> 一项新的 S$1.5 亿计划，旨在加速企业，尤其是中小企业采用 AI 和高级计算解决方案。",
+                eciModalFunding: "<strong>资金/支持：</strong> 与主要云提供商合作，提供 AI 工具、计算能力、专家咨询。",
+                eciModalRelevance: "<strong>与 DAE 的相关性：</strong> 解决 AI 开发（例如 GPU 实例）的高昂基础设施/计算成本，显著抵消云费用。",
+                eisModalTitle: "企业创新计划 (EIS)",
+                eisModalPurpose: "<strong>目的：</strong> 鼓励研发和知识产权开发。",
+                eisModalFunding: "<strong>资金：</strong> 在新加坡发生的合格研发费用，前 S$400,000 可享受 400% 的税收减免。还可选择将最高 S$100,000 的支出转换为免税现金支付。",
+                eisModalRelevance: "<strong>与 DAE 的相关性：</strong> 对核心 AI 开发的有力激励，大幅降低研发实际成本（人员、耗材、外包研发）。",
+                startupSgModalTitle: "Startup SG Tech",
+                startupSgModalPurpose: "<strong>目的：</strong> 为科技初创企业提供早期资金，以开发和商业化突破性的专有技术。",
+                startupSgModalFunding: "<strong>资金：</strong> 概念验证 (POC) 补助金最高 S$250,000；可行性验证 (POV) 补助金最高 S$500,000。",
+                startupSgModalRelevance: "<strong>与 DAE 的相关性：</strong> 如果 AI 智能体平台是一个新的风险/产品线，它为验证 AI 智能体的技术/商业可行性提供了关键的早期资本。要求核心研发在新加坡进行。",
+                closeButton: "关闭",
+                devLocationTitle: "开发地点策略",
+                revenueModelTitle: "收入模型与预测",
+                marketExpansionTitle: "市场拓展策略",
+                marketEntryTitle: "分阶段市场进入",
+                privacyComplianceTitle: "数据隐私与监管合规",
+                competitiveEdgeTitle: "竞争优势与护城河",
+                differentiatingFactorsTitle: "差异化因素",
+                buildingMoatsTitle: "构建可持续护城河",
+                dataNetworkEffectTitle: "📊 数据网络效应",
+                dataNetworkEffectDesc: "更多数据 -> 更好的 AI -> 更多客户 -> 更多数据。",
+                switchingCostsTitle: "🔗 高转换成本",
+                switchingCostsDesc: "深度集成到核心工作流程中，使客户迁移具有破坏性和高成本。",
+                proprietaryTechTitle: "💡 专有技术与知识产权",
+                proprietaryTechDesc: "独特的 AI 算法、专门的模型和受专利/商业秘密保护的中间件框架。",
+                brandReputationTitle: "⭐ 品牌与声誉",
+                brandReputationDesc: "早期的成功和投资回报率建立信任和忠诚度。",
+                conclusionTitle: "总结与建议",
+                chartCostLabels: ['数据获取与管理', '数据清洗与标注', 'AI 模型开发（高级深度学习）', '集成', '年度维护'],
+                chartCostDataset1: '最低估算成本（美元）',
+                chartCostDataset2: '最高估算成本（美元）',
+                chartTeamLabels: ['中国团队', '新加坡团队', '混合模式（估算）'],
+                chartTeamDataset1: '最低年度成本（千美元）',
+                chartTeamDataset2: '最高年度成本（千美元）',
+                chartYCurrencyTitle: '成本（千美元）',
+                chartYPercentageTitle: '百分比 (%)',
+                chartYCostLogTitle: '成本（美元 - 对数刻度）'
+            }
+        };
+
+        let currentLanguage = 'en';
+        let costChartInstance;
+        let teamChartInstance;
+
+        function applyTranslations() {
+            const elements = document.querySelectorAll('[data-i18n-key]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n-key');
+                if (translations[currentLanguage] && translations[currentLanguage][key]) {
+                    element.innerHTML = translations[currentLanguage][key];
+                }
+            });
+
+            const langSpecificDivs = document.querySelectorAll('[data-lang]');
+            langSpecificDivs.forEach(div => {
+                if (div.getAttribute('data-lang') === currentLanguage) {
+                    div.classList.remove('hidden');
+                } else {
+                    div.classList.add('hidden');
+                }
+            });
+
+            updateCharts();
+        }
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang; // Update HTML lang attribute
+            applyTranslations();
+        }
+
+        document.getElementById('language-selector').addEventListener('change', (event) => {
+            switchLanguage(event.target.value);
+        });
+
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('.section');
-        const submenus = {};
 
         function navigateToSection(sectionId) {
             const targetSection = document.getElementById(sectionId);
@@ -631,19 +1284,12 @@
                 }
             });
             
-            // Open parent submenu if navigating to a sub-item
             const parentSubmenuButton = document.querySelector(`button[onclick*="'${targetSection.closest('[id$=-submenu]')?.id}'"]`);
-            if (parentSubmenuButton && !document.getElementById(targetSection.closest('[id$=-submenu]')?.id).classList.contains('hidden')) {
-                // Already open or handled by direct click
-            } else if (parentSubmenuButton) {
-                 // toggleSubmenu(targetSection.closest('[id$=-submenu]').id); // This was causing issues, direct show is better
-                 const submenuElement = document.getElementById(targetSection.closest('[id$=-submenu]')?.id);
-                 if(submenuElement) submenuElement.classList.remove('hidden');
-
+            if (parentSubmenuButton && document.getElementById(targetSection.closest('[id$=-submenu]')?.id)) {
+                document.getElementById(targetSection.closest('[id$=-submenu]')?.id).classList.remove('hidden');
             }
 
-
-            window.scrollTo(0, 0); // Scroll to top of new section
+            window.scrollTo(0, 0); 
         }
         
         navLinks.forEach(link => {
@@ -666,7 +1312,6 @@
             }
         }
 
-        // Initial section display based on URL hash or default
         window.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash;
             if (hash) {
@@ -674,10 +1319,12 @@
             } else {
                 navigateToSection('overview');
             }
-            initializeCharts();
+            // Set initial language from selector or default to English
+            const initialLang = document.getElementById('language-selector').value;
+            switchLanguage(initialLang);
+            document.querySelector('.tab-button.active').click(); // Open default tab
         });
         
-        // Tab functionality for Prioritization
         function openTier(evt, tierName) {
             var i, tiercontent, tabbuttons;
             tiercontent = document.getElementsByClassName("tier-content");
@@ -691,9 +1338,7 @@
             document.getElementById(tierName).style.display = "block";
             evt.currentTarget.classList.add("active");
         }
-        document.querySelector('.tab-button.active').click(); // Open default tab
 
-        // Modal functionality
         function openModal(modalId) {
             document.getElementById(modalId).classList.add('open');
         }
@@ -702,13 +1347,11 @@
             document.getElementById(modalId).classList.remove('open');
         }
         
-        // Close modal on escape key
         window.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 document.querySelectorAll('.modal.open').forEach(modal => closeModal(modal.id));
             }
         });
-        // Close modal on outside click
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', function(event) {
                 if (event.target === this) {
@@ -717,28 +1360,6 @@
             });
         });
 
-
-        // Chart.js label wrapping function
-        function wrapText(ctx, text, maxWidth) {
-            const words = text.split(' ');
-            let lines = [];
-            let currentLine = words[0];
-
-            for (let i = 1; i < words.length; i++) {
-                const word = words[i];
-                const width = ctx.measureText(currentLine + " " + word).width;
-                if (width < maxWidth) {
-                    currentLine += " " + word;
-                } else {
-                    lines.push(currentLine);
-                    currentLine = word;
-                }
-            }
-            lines.push(currentLine);
-            return lines;
-        }
-        
-        // Chart.js default options
         const defaultChartOptions = {
             responsive: true,
             maintainAspectRatio: false,
@@ -777,7 +1398,7 @@
                         color: '#475569',
                         callback: function(value, index, values) {
                             const label = this.getLabelForValue(value);
-                            if (label.length > 16) { // 16-char logic
+                            if (label.length > 16 && currentLanguage === 'en') { // 16-char logic only for English
                                 return label.substring(0, 15) + '...';
                             }
                             return label;
@@ -789,74 +1410,94 @@
                     ticks: { color: '#475569' },
                     grid: { color: '#e2e8f0' }
                 },
-                yCurrency: { // For currency values in thousands
+                yCurrency: {
                     position: 'left',
                     ticks: { 
                         color: '#475569',
                         callback: function(value) { return '$' + value + 'k'; }
                     },
                     grid: { color: '#e2e8f0' },
-                    title: { display: true, text: 'Cost (USD Thousands)', color: '#475569'}
+                    title: { display: true, text: translations[currentLanguage].chartYCurrencyTitle, color: '#475569'}
                 },
-                yPercentage: { // For percentage values
+                yPercentage: {
                      position: 'left',
                      ticks: {
                          color: '#475569',
                          callback: function(value) { return value + '%'; }
                      },
                      grid: { color: '#e2e8f0' },
-                     title: { display: true, text: 'Percentage (%)', color: '#475569'}
+                     title: { display: true, text: translations[currentLanguage].chartYPercentageTitle, color: '#475569'}
                 }
             }
         };
 
+        function updateCharts() {
+            if (costChartInstance) {
+                costChartInstance.destroy();
+            }
+            if (teamChartInstance) {
+                teamChartInstance.destroy();
+            }
 
-        function initializeCharts() {
             // Cost Projections Chart
             const costCtx = document.getElementById('costProjectionsChart').getContext('2d');
-            new Chart(costCtx, {
+            costChartInstance = new Chart(costCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Data Acq. & Mgmt', 'Data Cleaning/Labeling', 'AI Model Dev (Adv. DL)', 'Integration', 'Annual Maintenance'],
+                    labels: translations[currentLanguage].chartCostLabels,
                     datasets: [{
-                        label: 'Min Estimated Cost (USD)',
+                        label: translations[currentLanguage].chartCostDataset1,
                         data: [5000, 3000, 500000, 5000, 5000],
-                        backgroundColor: 'rgba(79, 70, 229, 0.7)', // indigo
+                        backgroundColor: 'rgba(79, 70, 229, 0.7)',
                         borderColor: 'rgba(79, 70, 229, 1)',
                         borderWidth: 1
                     }, {
-                        label: 'Max Estimated Cost (USD)',
+                        label: translations[currentLanguage].chartCostDataset2,
                         data: [50000, 250000, 5000000, 50000, 78000],
-                        backgroundColor: 'rgba(56, 189, 248, 0.7)', // sky
+                        backgroundColor: 'rgba(56, 189, 248, 0.7)',
                         borderColor: 'rgba(56, 189, 248, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: { ...defaultChartOptions, 
-                    scales: { ...defaultChartOptions.scales, y: { ...defaultChartOptions.scales.y, type: 'logarithmic', title: { display: true, text: 'Cost (USD - Log Scale)', color: '#475569'}} }
+                    scales: { 
+                        ...defaultChartOptions.scales, 
+                        y: { 
+                            ...defaultChartOptions.scales.y, 
+                            type: 'logarithmic', 
+                            title: { display: true, text: translations[currentLanguage].chartYCostLogTitle, color: '#475569'}
+                        } 
+                    }
                 }
             });
 
             // Team Cost Chart
             const teamCtx = document.getElementById('teamCostChart').getContext('2d');
-            new Chart(teamCtx, {
+            teamChartInstance = new Chart(teamCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['China-Based Team', 'Singapore-Based Team', 'Mixed Model (Est.)'],
+                    labels: translations[currentLanguage].chartTeamLabels,
                     datasets: [{
-                        label: 'Min Annual Cost (USD Thousands)',
-                        data: [350, 250, 300], // in thousands
-                        backgroundColor: 'rgba(16, 185, 129, 0.7)', // emerald
+                        label: translations[currentLanguage].chartTeamDataset1,
+                        data: [350, 250, 300],
+                        backgroundColor: 'rgba(16, 185, 129, 0.7)',
                         yAxisID: 'yCurrency'
                     }, {
-                        label: 'Max Annual Cost (USD Thousands)',
-                        data: [500, 550, 525], // in thousands
-                        backgroundColor: 'rgba(245, 158, 11, 0.7)', // amber
+                        label: translations[currentLanguage].chartTeamDataset2,
+                        data: [500, 550, 525],
+                        backgroundColor: 'rgba(245, 158, 11, 0.7)',
                         yAxisID: 'yCurrency'
                     }]
                 },
                 options: { ...defaultChartOptions, 
-                    scales: { ...defaultChartOptions.scales, y: undefined, yCurrency: defaultChartOptions.scales.yCurrency }
+                    scales: { 
+                        ...defaultChartOptions.scales, 
+                        y: undefined, 
+                        yCurrency: {
+                            ...defaultChartOptions.scales.yCurrency,
+                            title: { display: true, text: translations[currentLanguage].chartYCurrencyTitle, color: '#475569'}
+                        }
+                    }
                 }
             });
         }
